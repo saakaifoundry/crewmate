@@ -1,0 +1,22 @@
+title: "Teambox FIT"
+logo: "teambox-logo.gif"
+copyright: "&copy; 2012 Jakub Jirůtka, FIT ČVUT v Praze"
+navigation:
+  - header: "Další stránky"
+    items:
+    - title: "Úvod"
+      url: "index.html"
+    - title: "Pro vývojáře"
+      url: "developers.html"
+    - title: "Zvací e-mail"
+      url: "invitation.html"
+  - header: "Odkazy"
+    items:
+    - title: "Issue tracking (FIT)"
+      url: "https://github.com/cvut/teambox/issues"
+    - title: "Zdrojové kódy (FIT)"
+      url: "https://github.com/cvut/teambox"
+    - title: "Oficiální web projektu"
+      url: "http://teambox.com/"
+analytics:
+  tracking_id: "UA-30120295-1"
