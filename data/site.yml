@@ -5,13 +5,13 @@ navigation:
   - header: "Další stránky"
     items:
     - title: "Úvod"
-      url: "index.html"
+      url: "/index.html"
     - title: "Pro vývojáře"
-      url: "developers.html"
+      url: "/developers.html"
     - title: "Zvací e-mail"
-      url: "invitation.html"
+      url: "/invitation.html"
     - title: "Zadání závěrečných prací"
-      url: "tasks/index.html"
+      url: "/tasks/index.html"
   - header: "Odkazy"
     items:
     - title: "Issue tracking (FIT)"
