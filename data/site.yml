@@ -10,6 +10,8 @@ navigation:
       url: "developers.html"
     - title: "Zvací e-mail"
       url: "invitation.html"
+    - title: "Zadání závěrečných prací"
+      url: "tasks/index.html"
   - header: "Odkazy"
     items:
     - title: "Issue tracking (FIT)"
