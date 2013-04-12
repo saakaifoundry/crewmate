@@ -11,19 +11,19 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   concerned_with  :activation,
-                  :avatar,
-                  :authentication,
-                  :authentication_ldap,
-                  :conversions,
-                  :recent_projects,
-                  :roles,
-                  :rss,
-                  :scopes,
-                  :validation,
-                  :task_reminders,
-                  :stats,
-                  :badges,
-                  :oauth
+    :avatar,
+    :authentication,
+    :authentication_ldap,
+    :conversions,
+    :recent_projects,
+    :roles,
+    :rss,
+    :scopes,
+    :validation,
+    :task_reminders,
+    :stats,
+    :badges,
+    :oauth
 
   has_many :projects_owned, :class_name => 'Project', :foreign_key => 'user_id'
   has_many :comments
@@ -55,38 +55,38 @@ class User < ActiveRecord::Base
   scope :in_alphabetical_order, :order => 'users.first_name ASC'
 
   attr_accessible :login,
-                  :email,
-                  :first_name,
-                  :last_name,
-                  :biography,
-                  :password,
-                  :password_confirmation,
-                  :old_password,
-                  :time_zone,
-                  :locale,
-                  :first_day_of_week,
-                  :betatester,
-                  :card_attributes,
-                  :notify_conversations,
-                  :notify_tasks,
-                  :notify_pages,
-                  :splash_screen,
-                  :wants_task_reminder,
-                  :keyboard_shortcuts,
-                  :digest_delivery_hour,
-                  :instant_notification_on_mention,
-                  :default_digest, 
-                  :default_watch_new_task, :default_watch_new_conversation, :default_watch_new_page,
-                  :people_attributes,
-                  :google_calendar_url_token,
-                  :auto_accept_invites
-                  :uses_ldap_authentication
+    :email,
+    :first_name,
+    :last_name,
+    :biography,
+    :password,
+    :password_confirmation,
+    :old_password,
+    :time_zone,
+    :locale,
+    :first_day_of_week,
+    :betatester,
+    :card_attributes,
+    :notify_conversations,
+    :notify_tasks,
+    :notify_pages,
+    :splash_screen,
+    :wants_task_reminder,
+    :keyboard_shortcuts,
+    :digest_delivery_hour,
+    :instant_notification_on_mention,
+    :default_digest,
+    :default_watch_new_task, :default_watch_new_conversation, :default_watch_new_page,
+    :people_attributes,
+    :google_calendar_url_token,
+    :auto_accept_invites,
+    :uses_ldap_authentication
 
   attr_accessor   :activate, :old_password
 
   before_validation :sanitize_name
   before_destroy :rename_as_deleted
-  
+
   before_create :init_user
   after_create :clear_invites
   after_create :join_default_organizations
@@ -147,7 +147,7 @@ class User < ActiveRecord::Base
   def visited_at
     read_attribute(:visited_at) || updated_at
   end
-  
+
   def locale
     if I18n.available_locales.map(&:to_s).include? self[:locale]
       self[:locale]
@@ -163,11 +163,11 @@ class User < ActiveRecord::Base
   def shares_invited_projects_with?(user)
     Invitation.count(:conditions => {:project_id => user.project_ids, :invited_user_id => self.id}) > 0
   end
-  
+
   def users_with_shared_projects
     ids = self.projects.except(:order).order('id DESC').map(&:user_ids).flatten
     ids += Invitation.where(:project_id => self.project_ids).select('user_id').map(&:user_id)
-    
+
     User.where({:id => ids.uniq})
   end
 
@@ -188,15 +188,15 @@ class User < ActiveRecord::Base
       update_attribute(:visited_at, Time.now)
     end
   end
-  
+
   def person_for(project)
     self.people.find_by_project_id(project.id)
   end
-  
+
   def member_for(organization)
     self.memberships.find_by_organization_id(organization.id)
   end
-  
+
   def watching?(object)
     object.has_watcher? self
   end
@@ -204,7 +204,7 @@ class User < ActiveRecord::Base
   def utc_offset
     @utc_offset ||= ActiveSupport::TimeZone[time_zone].try(:utc_offset) || 0
   end
-  
+
   def in_project(project)
     project.people.find_by_user_id(self)
   end
@@ -212,14 +212,14 @@ class User < ActiveRecord::Base
   def contacts
     conditions = ["project_id IN (?)", Array(self.projects).collect{ |p| p.id } ]
     user_ids = Person.find(:all,
-      :select => 'user_id',
-      :conditions => conditions,
-      :limit => 300).collect { |p| p.user_id }.uniq
+                           :select => 'user_id',
+                           :conditions => conditions,
+                           :limit => 300).collect { |p| p.user_id }.uniq
     conditions = ["id IN (?) AND deleted = ? AND id != (?)", user_ids, false, self.id]
     User.find(:all,
-      :conditions => conditions,
-      :order => 'updated_at DESC',
-      :limit => 60)
+              :conditions => conditions,
+              :order => 'updated_at DESC',
+              :limit => 60)
   end
 
   def active_projects_count
@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
 
   def can_create_project?
     # is in any organization?
-    !organizations.empty? or supervisor? || Teambox.config.user_can_create_organization 
+    !organizations.empty? or supervisor? || Teambox.config.user_can_create_organization
   end
 
   DELETED_TAG = "deleted"
@@ -274,7 +274,7 @@ class User < ActiveRecord::Base
     Rails.cache.fetch("pending_tasks.#{id}") do
       active_project_ids.empty? ? [] :
         Task.where(:status => Task::ACTIVE_STATUS_CODES).where(:assigned_id => active_project_ids).order('ID desc').includes(:project).
-             sort { |a,b| [a.urgent? ? 1 : 0, (a.due_on || 1.week.from_now.to_date)] <=> [b.urgent? ? 1 : 0, (b.due_on || 1.year.from_now.to_date)] }
+        sort { |a,b| [a.urgent? ? 1 : 0, (a.due_on || 1.week.from_now.to_date)] <=> [b.urgent? ? 1 : 0, (b.due_on || 1.year.from_now.to_date)] }
     end
   end
 
@@ -288,7 +288,7 @@ class User < ActiveRecord::Base
 
   def tasks_counts_update
     assigned_tasks = Task.assigned_to(self)
-    # we do t.statys && t.status < 3 because some tasks might be 
+    # we do t.statys && t.status < 3 because some tasks might be
     self.assigned_tasks_count  = assigned_tasks.select { |t| t.status == 1 }.length
     self.completed_tasks_count = assigned_tasks.select { |t| t.status == 3 }.length
     self.save
@@ -300,7 +300,8 @@ class User < ActiveRecord::Base
 
   def supervisor?
     Teambox.config.supervisors? and Teambox.config.supervisors.include?(login)
-  
+  end
+
   def keyboard_shortcuts
     !!settings['keyboard_shortcuts']
   end
@@ -308,6 +309,7 @@ class User < ActiveRecord::Base
   def join_default_organizations
     Organization.find_all_by_default(true).each do |target|
       target.add_member(self, Membership::ROLES[:participant])
+    end
   end
 
   def keyboard_shortcuts=(v)
@@ -322,24 +324,24 @@ class User < ActiveRecord::Base
   def google_calendar(gcal = nil)
     gcal = gcal || get_calendar_app
     return nil if gcal.nil?
-    
+
     unless google_calendar_url_token.blank?
       Rails.logger.debug("Using existing calendar #{google_calendar_url_token}")
       gcal.find(google_calendar_url_token)
     else
       Rails.logger.debug("Creating new Google calendar for user")
       calendar = gcal.create_calendar(GoogleCalendar::Calendar.new(:title => 'Teambox'))
-      
+
       Rails.logger.debug("Setting google_calendar_url_token to #{calendar.url_token}")
       self.update_attributes!(:google_calendar_url_token => calendar.url_token)
       calendar
     end
   end
-  
+
   def get_calendar_app
     consumer = get_google_calendar_provider
     return nil if consumer.nil?
-    
+
     app_link = self.app_links.find_by_provider('google')
     if app_link.nil?
       Rails.logger.debug "The user has not linked their Google account, calendar entry will not be created"
@@ -351,29 +353,29 @@ class User < ActiveRecord::Base
 
   protected
 
-    def find_available_deleted_tag
-      counter = 0
-      begin
-        counter += 1
-        tag = "#{DELETED_TAG}#{counter}__"
-        user = User.find_with_deleted(:first,
-                :conditions => "login LIKE '#{tag}#{login}' OR email LIKE '#{tag}#{email}'")
-      end while user
-      tag
-    end
+  def find_available_deleted_tag
+    counter = 0
+    begin
+      counter += 1
+      tag = "#{DELETED_TAG}#{counter}__"
+      user = User.find_with_deleted(:first,
+                                    :conditions => "login LIKE '#{tag}#{login}' OR email LIKE '#{tag}#{email}'")
+    end while user
+    tag
+  end
 
-    def sanitize_name
-      self.first_name = first_name.blank?? nil : first_name.squish
-      self.last_name = last_name.blank?? nil : last_name.squish
+  def sanitize_name
+    self.first_name = first_name.blank?? nil : first_name.squish
+    self.last_name = last_name.blank?? nil : last_name.squish
+  end
+
+  def get_google_calendar_provider
+    oauth_info = Teambox.config.providers.detect { |p| p.provider == 'google' }
+    if oauth_info.nil?
+      Rails.logger.debug "There is no Google provider, calendar entry will not be created"
+      return nil
     end
-    
-    def get_google_calendar_provider
-      oauth_info = Teambox.config.providers.detect { |p| p.provider == 'google' }
-      if oauth_info.nil?
-        Rails.logger.debug "There is no Google provider, calendar entry will not be created"
-        return nil
-      end
-      OAuth::Consumer.new(oauth_info.key, oauth_info.secret, GoogleCalendar::RESOURCES)
-    end
+    OAuth::Consumer.new(oauth_info.key, oauth_info.secret, GoogleCalendar::RESOURCES)
+  end
 
 end
