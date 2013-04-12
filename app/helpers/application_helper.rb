@@ -283,5 +283,18 @@ BLOCK
       page << errors
     end
   end
+
+  def default_organizations_allowed?
+    Teambox.config.allow_default_organizations? || false
+  end
+
+  # Google Analytics Tracking Code
+  def analytics_tracking_code
+    if Teambox.config.analytics_tracking_id? and Rails.env.production?
+      render 'shared/analytics', 
+        :tracking_id => Teambox.config.analytics_tracking_id
+    end
+  end
+
 end
 

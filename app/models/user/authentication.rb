@@ -9,7 +9,11 @@ class User
   def self.authenticate(login, password)
     unless login.blank? or password.blank?
       u = find_by_username_or_email(login)
-      u && u.authenticated?(password) ? u : nil
+      if Teambox.config.allow_ldap_auth && (!u || u.uses_ldap_authentication)
+        authenticate_with_ldap(login, password)
+      else
+        u.authenticated?(password) ? u : nil
+      end
     end
   end
 

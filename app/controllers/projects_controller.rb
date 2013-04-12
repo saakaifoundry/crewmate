@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
     respond_to do |f|
       flash[:error] = t('common.not_allowed')
       f.any(:html, :m) { redirect_to projects_path }
+      handle_api_error(f, @current_project)
     end
   end
   
@@ -71,7 +72,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |f|
       if @project.save
-        redirect_path = project_invite_people_path(@project)
+        redirect_path = redirect_to_invite_people? ? project_invite_people_path(@project) : @project
 
         f.html { redirect_to redirect_path }
         f.m { redirect_to @project }
@@ -93,6 +94,7 @@ class ProjectsController < ApplicationController
   
   def update
     authorize! :update, @current_project
+    authorize!(:transfer, @current_project) if params[:sub_action] == 'ownership'
     @sub_action = params[:sub_action] || 'settings'
     @organization = @current_project.organization if @current_project.organization
 
@@ -120,6 +122,34 @@ class ProjectsController < ApplicationController
     @current_project.invitations_locale = params[:invitations_locale]
     @current_project.send_invitations!
     redirect_to @current_project
+  end
+
+  def transfer
+    authorize! :transfer, @current_project
+    
+    # Grab new owner
+    user_id = params[:project][:user_id] rescue nil
+    person = @current_project.people.find_by_user_id(user_id)
+    saved = false
+    
+    # Transfer!
+    unless person.nil?
+      saved = @current_project.transfer_to(person)
+    end
+    
+    if saved
+      respond_to do |f|
+        flash[:notice] = I18n.t('projects.edit.transferred')
+        f.html { redirect_to project_path(@current_project) }
+        handle_api_success(f, @current_project)
+      end
+    else
+      respond_to do |f|
+        flash[:error] = I18n.t('projects.edit.invalid_transferred')
+        f.html { redirect_to project_path(@current_project) }
+        handle_api_error(f, @current_project)
+      end
+    end
   end
 
   def destroy
@@ -150,7 +180,21 @@ class ProjectsController < ApplicationController
   end
 
   def list
-    # TODO: sort by organization name and then by project name
+    @people = current_user.people
+    @roles = {  Person::ROLES[:observer] =>    t('roles.observer'),
+                Person::ROLES[:commenter] =>   t('roles.commenter'),
+                Person::ROLES[:participant] => t('roles.participant'),
+                Person::ROLES[:admin] =>       t('roles.admin') }
+
+
+    organization_ids = current_user.projects.sort {|a,b| a.name <=> b.name}.group_by(&:organization_id)
+    @organizations = organization_ids.collect do |k,v|
+      r = {}
+      r[:organization] = Organization.find(k)
+      r[:active_projects] = v.reject(&:archived)
+      r[:archived_projects] = v.select(&:archived)
+      r
+    end.sort {|a,b| a[:organization].name <=> b[:organization].name}
   end
 
   protected
@@ -172,6 +216,10 @@ class ProjectsController < ApplicationController
       if @community_organization && @community_role.nil?
         render :text => "You're not authorized to create projects on this organization."
       end
+    end
+
+    def redirect_to_invite_people?
+      Rails.env.cucumber? || Teambox.config.allow_outgoing_email?
     end
 
 end

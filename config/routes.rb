@@ -61,6 +61,7 @@ Teambox::Application.routes.draw do
     match '/auth/failure' => 'auth#failure', :as => :auth_failure
     match '/complete_signup' => 'users#complete_signup', :as => :complete_signup
     match '/auth/:provider/unlink' => 'users#unlink_app', :as => :unlink_app
+    match '/auth/google' => 'auth#index', :as => :authorize_google_docs, :defaults => {:provider => 'google'}
 
     resources :google_docs do
       get :search, :on => :collection
@@ -130,6 +131,7 @@ Teambox::Application.routes.draw do
     end
 
     match 'activities(.:format)' => 'activities#show', :as => :activities, :method => :get
+    match 'activities/:id/show_new(.:format)' => 'activities#show_new', :as => :show_new, :method => :get
     match 'activities/:id/show_more(.:format)' => 'activities#show_more', :as => :show_more, :method => :get
     match 'activities/:id/show_thread(.:format)' => 'activities#show_thread', :as => :show_thread, :method => :get
 
@@ -141,6 +143,7 @@ Teambox::Application.routes.draw do
       member do
         post :accept
         post :decline
+        put :transfer
         get :join
       end
 
@@ -161,6 +164,7 @@ Teambox::Application.routes.draw do
       end
 
       match 'activities(.:format)' => 'activities#show', :as => :activities, :method => :get
+      match 'activities/:id/show_new(.:format)' => 'activities#show_new', :as => :show_new, :method => :get
       match 'activities/:id/show_more(.:format)' => 'activities#show_more', :as => :show_more, :method => :get
 
       match 'move/:id' => 'uploads#move', :via => :put, :as => :move_resource
@@ -267,6 +271,9 @@ Teambox::Application.routes.draw do
     namespace :api_v1, :path => 'api/1' do
       resources :app_links, :except => [ :edit, :update ]
       resources :projects, :except => [:new, :edit] do
+        member do
+          put :transfer
+        end
 
         resources :activities, :only => [:index, :show]
 
@@ -392,6 +399,9 @@ Teambox::Application.routes.draw do
 
       resources :organizations, :except => [:new, :edit, :destroy] do
         resources :projects, :except => [:new, :edit] do
+          member do
+            put :transfer
+          end
         end
 
         resources :memberships, :except => [:new, :edit, :create]

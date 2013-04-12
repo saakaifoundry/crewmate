@@ -1,4 +1,3 @@
-require 'open-uri'
 class TeamboxData < ActiveRecord::Base
   include Immortal
 

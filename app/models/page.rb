@@ -7,7 +7,7 @@ class Page < RoleRecord
   has_many :uploads, :dependent => :destroy
   
   has_many :slots, :class_name => 'PageSlot', :order => 'position ASC', :dependent => :delete_all
-  
+
   has_permalink :name, :scope => :project_id
   
   attr_accessible :name, :description, :note_attributes, :is_private, :private_ids
@@ -151,6 +151,10 @@ class Page < RoleRecord
     @user ||= user_id ? User.with_deleted.find_by_id(user_id) : nil
   end
   
+  def refs_objects
+    notes+dividers+uploads
+  end
+  
   def to_xml(options = {})
     options[:indent] ||= 2
     xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
@@ -162,6 +166,7 @@ class Page < RoleRecord
       xml.tag! 'description',     description
       xml.tag! 'created-at',      created_at.to_s(:db)
       xml.tag! 'updated-at',      updated_at.to_s(:db)
+      xml.tag! 'watchers',        Array(watchers_ids).join(',')
       if Array(options[:include]).include? :slots
         slots.to_xml(options.merge({ :skip_instruct => true, :root => 'slots' }))
       end

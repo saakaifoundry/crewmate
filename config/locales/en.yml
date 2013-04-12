@@ -184,7 +184,8 @@ en:
       back: Back to Login screen
       submit: Send me a link to reset my password
     create:
-      not_found_html: "We can't find a user with that email: %{email}<br/>Please check the email address and try again. If that doesn't work, contact us at %{support}"
+      not_found_html: "We can't find a user with that email: %{email}. Please check the email address and try again. If that doesn't work, contact us at %{support}."
+      uses_ldap_auth_html: "We can't change this password because user with email %{email} is authenticated via LDAP. Please contact administrator of your LDAP server. If you're sure that your password is correct, contact us at %{support}."
       invalid_html: "The change password URL you visited is either invalid or expired. Try using I Forgot my Password again from the home page.<br/>If that doesn't work, contact us at %{support}"
       password_not_updated: "New password is not valid. Try again."
       password_updated: "Password was successfully updated."
@@ -439,6 +440,7 @@ en:
       resend_html: "Can't find the email? Press <a href='%{link}'>here</a> to re-send the activation email."
       spam: "Make sure the email wasn't classified as spam by your email client."
       wrong_email_html: "Wrong address? If you mistyped your email address, <a href='%{link}'>you can change it now</a>."
+      wrong_address_html: "Wrong address? If you mistyped your email address, <a href='%{link}'>cancel the signup process</a> and re-create your account with a valid address."
       problems_html: "If you're still having problems, please contact us at %{support}"
     daily_task_reminder_email:
       urgent: Urgent
@@ -554,6 +556,8 @@ en:
       public_project_html: "Public project. <em>Anybody will be able to access it and join it at the <a href='/public'>public projects section</a>.</em>"
       archiving: "Archive this project"
       forever: "Delete this project forever"
+      owner: "Owner"
+      owner_description: "The owner is the main responsible for a project. He or she cannot be removed from the project before ownership is transferred to another user."
       name_html: "Project Name <em>Keep it short and descriptive, for example: Taggart Transcontinental.</em>"
       name_example: Project name
       permalink_html: "Permalink <em>Short identifier for the project</em>"
@@ -618,6 +622,9 @@ en:
       title_deletion: Archive or Delete project %{project}
       title_ownership: Ownership of %{project}
       submit: Save Changes
+      change_owner: Change owner
+      transferred: "Project ownership has been transferred."
+      invalid_transferred: "Project ownership could not be transferred, correct errors and try again."
       success: Project updated
       error: Couldn't change project settings
       deleted: You deleted the project
@@ -710,6 +717,7 @@ en:
       domain_html: "Domain <em>You can use your own domain for your organization, check the <a href='http://help.teambox.com/knowledgebase/articles/10247-custom-domain' title='How to use your own domain for your organization in Teambox'>documentation</a>.</em>"
       omit_email_processing_html: Do not process incoming emails
     appearance_fields:
+      colours: Site colors
       logo_html: Logo <em>Ideally should be 134x36 pixels</em>
       description_html: HTML to be displayed on the entrance page <a href="http://help.teambox.com/knowledgebase/articles/10249-customizing-your-login-page">Learn how to use this</a>
       delete_custom_logo: Delete custom logo (and revert back to the Teambox one)
@@ -1164,6 +1172,7 @@ en:
       participant: "Participant. Can do everything, but not invite users."
       admin: "Admin. Can invite users to the project, and delete comments."
     header:
+      owner: Project Owner
       observer: Observer
       commenter: Commenter
       participant: Participant
@@ -1204,6 +1213,7 @@ en:
       hours_with_minutes: "%{hours}h %{minutes}m"
       cannot_edit: "Comment cannot be edited after 15 minutes"
       loading: "Loading..."
+      commented_in_project: "%{user} in %{project}"
     hours:
       add_hours: Hours
       tooltip: Add hours to this task
@@ -1228,6 +1238,7 @@ en:
     errors:
       cannot_update: You do not have permission to update this comment
     actions:
+      conversation_url: Conversation page
       confirm_delete: Are you sure you want to delete this comment?
       convert_task: Convert to task
       post_by_email: Reply via email
@@ -1474,11 +1485,14 @@ en:
       dropbox: Dropbox folders
       show_all_organizations: "Manage organizations..."
       gantt_and_calendars: Gantts and calendars
+      show_more: Show more
+      show_less: Show less
       affiliate: Affiliate area
     project_settings_navigation:
       general: General Settings
       picture: Project Picture
       deletion: Project Archiving/Deletion
+      ownership: Ownership
     project_navigation:
       overview: Overview
       all_conversations: All Conversations
@@ -1784,6 +1798,7 @@ en:
       no_results:
         title: "We didn't find any results for '%{term}', sorry!"
         explain: "Try using more specific search terms to find more results."
+      report: "We found %{count} results for your search terms '%{term}'"
 
   number:
     # Used in number_with_delimiter()
@@ -2090,6 +2105,11 @@ en:
     link_account: Link account.
     unlink_account: Unlink account.
     sign_up_conflict: We already have an account on the system with same username and/or email. If you already have an account you should login to your account instead of creating a new one.
+    user_exists: This %{provider} profile is not linked with any account yet.
+    user_already_exists_by_email: "Link '%{email}' to your Teambox account"
+    user_already_exists_by_login: "The username '%{login}' is already taken"
+    user_exists_instruction: If you already have a Teambox account, log in to link it automatically to your %{provider} profile.
+    user_exists_is_not_yours_html: If you don't own the account '%{account}', %{signup_for_a_new_account}.
     signup_for_a_new_account: click here to sign up for a new account
     authorize:
       title: "Authorize Application"

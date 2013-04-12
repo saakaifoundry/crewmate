@@ -5,6 +5,14 @@ class OrganizationsController < ApplicationController
 
   before_filter :redirect_community, :only => [:index, :new, :create]
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |f|
+      flash[:error] = t('common.not_allowed')
+      f.any(:html, :m) { redirect_to root_path }
+      handle_api_error(f, @organization)
+    end
+  end
+
   def index
     @page_title = t('organizations.index.title')
     @organizations = current_user.organizations
@@ -23,11 +31,13 @@ class OrganizationsController < ApplicationController
   end
 
   def new
+    authorize! :create_organization, current_user
     @organization = current_user.organizations.build
   end
 
   def create
     @organization = Organization.new(params[:organization])
+    authorize! :create_organization, current_user
 
     if @organization.save
       membership = @organization.memberships.build(:role => Membership::ROLES[:admin])

@@ -1,8 +1,21 @@
+language: ruby
+rvm:
+  - ree
+  - 1.8.7
+  - 1.9.3
+bundler_args: --without development
+env:
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgres
+branches:
+  except:
+    - fit-pages
 before_script:
-  - "cp config/database{.example,}.yml"
-  - "bundle exec rake db:drop db:create db:schema:load"
+  - "cp -v config/database.${DB}.yml config/database.yml"
+  - "cp -v config/teambox.example.yml config/teambox.yml"
+  - bundle exec rake db:create db:schema:load RAILS_ENV=test
 script: "bundle exec rake spec"
-notifications:
-  recipients:
-    - jordi@teambox.com
-
+matrix:
+  allow_failures:
+    - rvm: 1.9.3

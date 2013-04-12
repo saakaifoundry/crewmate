@@ -9,6 +9,7 @@ defaults: &defaults
 
   # How many activities should activity feeds display?
   activities_per_page: 25
+  autorefresh_interval: 60 # in seconds
 
   # Hour of the day at which daily reminders will be sent
   daily_task_reminder_email_time: 6
@@ -91,7 +92,7 @@ defaults: &defaults
     :password:  PASSWORD
 
   # Allow teambox.com to gather statistics about this installation
-  tracking_enabled: true
+  tracking_enabled: false
 
   # Destination where your users could write to ask for help. Accepts an email or website.
   support: http://help.teambox.com
@@ -99,36 +100,78 @@ defaults: &defaults
   help_url: http://help.teambox.com/faqs/using-teambox
   support_url: http://teambox.com/community
 
+########## Authentication settings ##########
+
   # You can configure standard oauth provider here, or any supported omni-auth provider
   # in the omni-auth initializer.
   #
   # providers:
-  # Register your own domain at http://github.com/account/applications
-  # Allows login through Github
-  # - :provider: github
-  #   :key: 
-  #   :secret: 
-  # Register your own domain at http://dev.twitter.com/apps/new
-  # Allows login through Twitter
-  # - :provider: twitter
-  #   :key: 
-  #   :secret: 
-  # Register your own domain at http://www.facebook.com/developers
-  # Allows login through Facebook
-  # - :provider: facebook
-  #   :key: 
-  #   :secret: 
   # Register your own domain at https://www.google.com/accounts/NewAccount
   # Allows Google Docs integration
   # - :provider: google
   #   :key: 
   #   :secret: 
-  # - :provider: google_apps
+  #
+  # Register your own domain at http://github.com/account/applications
+  # Allows login through Github
+  # - :provider: github
+  #   :key: 
+  #   :secret: 
+  #
+  # Register your own domain at http://dev.twitter.com/apps/new
+  # Allows login through Twitter
+  # - :provider: twitter
+  #   :key: 
+  #   :secret: 
+  #
+  # Register your own domain at http://www.facebook.com/developers
+  # Allows login through Facebook
+  # - :provider: facebook
+  #   :key: 
+  #   :secret:
+  #
   # Register your own domain at https://www.linkedin.com/secure/developer
   # Allows login through LinkedIn
   # - :provider: linked_in
   #   :key: 
   #   :secret: 
+
+  # Allow users autentication via LDAP.      
+  allow_ldap_auth: false
+
+  # LDAP settings
+  ldap_auth_settings:
+    :host: domain.tld
+    :port: 389
+    :base_dn: ou=People,o=domain.tld
+    :bind_dn: # none
+    :bind_password: # none
+    :identifier_key: uid
+    :first_name_key: givenName
+    :last_name_key: sn
+    :email_key: mail
+ 
+ 
+########## Others ##########
+
+  # Enable option to set organization as default for all new users;
+  # every newly signed user will be automatically added to all default 
+  # organizations as participant (i.e. will be able to create new projects).
+  # When you disable it later, it will NOT turn off adding new users to
+  # existing default organizations, but only disable change of this option.
+  allow_default_organizations: false
+
+  # If you want to use Google Analytics, uncomment this and fill your Tracking ID.
+#  analytics_tracking_id:
+
+  # Allow teambox.com to gather statistics about this installation
+  tracking_enabled: false
+
+  # Destination where your users could write to ask for help. Accepts an email or website.
+  support: http://help.teambox.com
+
+  help_url: http://help.teambox.com/faqs/using-teambox
+  support_url: http://teambox.com/community
 
   heroku: <%= !!ENV['HEROKU_TYPE'] %>
   trimmer_cache_dir: <%=(Rails.root + "public").to_s %>

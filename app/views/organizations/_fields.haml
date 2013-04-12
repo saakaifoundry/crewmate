@@ -11,7 +11,10 @@
     = errors_for @organization, :omit_email_processing
     = f.check_box :omit_email_processing
     %label{:for => 'organization_omit_email_processing'}= t('.omit_email_processing_html')
-%br
+- if default_organizations_allowed? or @organization.default?
+  .check_box
+    = f.check_box :default, :disabled => !default_organizations_allowed?
+    = f.label :default, t('.default_html')
 -#.text_field
 -#  %label Default language <em>invitations will be sent in this language</em>
 -#  = select_tag :language, "<option>English</option>"

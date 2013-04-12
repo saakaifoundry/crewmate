@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902112234) do
+ActiveRecord::Schema.define(:version => 20120311202846) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.string   "name"
     t.integer  "last_comment_id"
     t.integer  "comments_count",  :default => 0,     :null => false
+    t.text     "watchers_ids"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "simple",          :default => false
@@ -320,6 +321,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.datetime "updated_at"
     t.text     "settings"
     t.boolean  "deleted",           :default => false,                        :null => false
+    t.boolean  "default",           :default => false,    :null => false
   end
 
   add_index "organizations", ["deleted"], :name => "index_organizations_on_deleted"
@@ -339,6 +341,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.string   "name"
     t.text     "description"
     t.integer  "last_comment_id"
+    t.text     "watchers_ids"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
@@ -356,7 +359,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.integer  "project_id"
     t.integer  "source_user_id"
     t.string   "permissions"
-    t.integer  "role",                   :default => 2
+    t.integer  "role",           :default => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",                :default => false, :null => false
@@ -439,6 +442,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.integer  "position"
     t.integer  "last_comment_id"
     t.integer  "comments_count",       :default => 0,     :null => false
+    t.text     "watchers_ids"
     t.boolean  "archived",             :default => false
     t.integer  "archived_tasks_count", :default => 0,     :null => false
     t.integer  "tasks_count",          :default => 0,     :null => false
@@ -460,10 +464,11 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.integer  "user_id"
     t.string   "name"
     t.integer  "position"
-    t.integer  "comments_count",            :default => 0,     :null => false
+    t.integer  "comments_count",  :default => 0,     :null => false
     t.integer  "last_comment_id"
+    t.text     "watchers_ids"
     t.integer  "assigned_id"
-    t.integer  "status",                    :default => 0
+    t.integer  "status",          :default => 0
     t.date     "due_on"
     t.datetime "completed_at"
     t.datetime "created_at"
@@ -484,6 +489,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.integer  "user_id"
     t.integer  "type_id"
     t.text     "project_ids"
+    t.text     "map_data"
     t.string   "processed_data_file_name"
     t.string   "processed_data_content_type"
     t.integer  "processed_data_file_size"
@@ -525,14 +531,14 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
   add_index "uploads", ["token"], :name => "index_uploads_on_token"
 
   create_table "users", :force => true do |t|
-    t.string   "login",                           :limit => 40
-    t.string   "first_name",                      :limit => 20,  :default => ""
-    t.string   "last_name",                       :limit => 20,  :default => ""
+    t.string   "login",                     :limit => 40
+    t.string   "first_name",                :limit => 20,  :default => ""
+    t.string   "last_name",                 :limit => 20,  :default => ""
     t.text     "biography"
-    t.string   "email",                           :limit => 100
-    t.string   "crypted_password",                :limit => 40
-    t.string   "salt",                            :limit => 40
-    t.string   "remember_token",                  :limit => 40
+    t.string   "email",                     :limit => 100
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "time_zone",                                      :default => "Eastern Time (US & Canada)"
     t.string   "locale",                                         :default => "en"
@@ -540,41 +546,33 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.integer  "invitations_count",                              :default => 0,                            :null => false
     t.string   "login_token",                     :limit => 40
     t.datetime "login_token_expires_at"
-    t.boolean  "confirmed_user",                                 :default => false
-    t.string   "rss_token",                       :limit => 40
-    t.boolean  "admin",                                          :default => false
-    t.integer  "comments_count",                                 :default => 0,                            :null => false
-    t.boolean  "notify_mentions",                                :default => true
-    t.boolean  "notify_conversations",                           :default => true
-    t.boolean  "notify_tasks",                                   :default => true
+    t.boolean  "confirmed_user",                           :default => false
+    t.string   "rss_token",                 :limit => 40
+    t.boolean  "admin",                                    :default => false
+    t.integer  "comments_count",                           :default => 0,                            :null => false
+    t.boolean  "notify_mentions",                          :default => true
+    t.boolean  "notify_conversations",                     :default => true
+    t.boolean  "notify_tasks",                             :default => true
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.integer  "invited_by_id"
-    t.integer  "invited_count",                                  :default => 0,                            :null => false
+    t.integer  "invited_count",                            :default => 0,                            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "wants_task_reminder",                            :default => true
+    t.boolean  "wants_task_reminder",                      :default => true
     t.text     "recent_projects_ids"
-    t.string   "feature_level",                                  :default => ""
-    t.string   "spreedly_token",                                 :default => ""
+    t.string   "feature_level",                            :default => ""
+    t.string   "spreedly_token",                           :default => ""
     t.datetime "avatar_updated_at"
     t.datetime "visited_at"
-    t.boolean  "betatester",                                     :default => false
-    t.boolean  "splash_screen",                                  :default => false
+    t.boolean  "betatester",                               :default => false
+    t.boolean  "splash_screen",                            :default => false
     t.integer  "assigned_tasks_count"
     t.integer  "completed_tasks_count"
-    t.boolean  "deleted",                                        :default => false,                        :null => false
+    t.boolean  "deleted",                                  :default => false,                        :null => false
     t.text     "settings"
-    t.integer  "digest_delivery_hour",                           :default => 9
-    t.boolean  "instant_notification_on_mention",                :default => true
-    t.integer  "default_digest",                                 :default => 0
-    t.boolean  "default_watch_new_task",                         :default => false
-    t.boolean  "default_watch_new_conversation",                 :default => false
-    t.boolean  "default_watch_new_page",                         :default => false
-    t.boolean  "notify_pages",                                   :default => false
-    t.string   "google_calendar_url_token"
-    t.boolean  "auto_accept_invites",                            :default => true
+    t.boolean  "uses_ldap_authentication",                 :default => false
   end
 
   add_index "users", ["deleted"], :name => "index_users_on_deleted"

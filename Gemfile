@@ -14,7 +14,7 @@ end
 gem 'activesupport-i18n-patch', :git => 'git://github.com/teambox/activesupport-i18n-patch.git'
 
 gem 'nokogiri'
-gem 'SystemTimer', '~> 1.2.0', :require => 'system_timer'
+gem 'SystemTimer', '~> 1.2.0', :require => 'system_timer', :platform => :mri_18
 gem 'whenever', '~> 0.4.1', :require => nil
 gem 'icalendar', '~> 1.1.3'
 gem 'libxml-ruby', '1.1.3', :require => 'libxml'
@@ -37,21 +37,25 @@ gem 'trimmer', :git => "https://github.com/teambox/trimmer.git"
 gem "will_paginate", :git=>"git://github.com/teambox/will_paginate.git"
 gem 'thinking-sphinx', '2.0.1', :require => 'thinking_sphinx'
 gem 'sprockets-rails', '~> 0.0.1'
+gem 'barista', '~> 1.0'
 gem 'vestal_versions', '~> 1.2.2', :git => 'git://github.com/adamcooper/vestal_versions'
 gem 'paperclip', '~> 2.3.6'
 gem 'teambox-permalink_fu', :require => 'permalink_fu'
 gem 'cancan', '~> 1.4.1'
-gem 'immortal', '~> 0.1.7'
-gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer' 
+gem 'immortal', :git => 'git://github.com/davidmm/immortal.git', :branch => 'postgresql_fix'
+gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer'
 gem 'jammit'
 
 group :development do
-  gem 'sqlite3-ruby', '~> 1.2.5', :require => nil
   gem 'ruby-debug', '~> 0.10.3', :require => nil
   gem 'mongrel', '~> 1.1.5', :require => nil
   gem 'haml-rails'
   gem 'unicorn'
   gem 'foreman'
+end
+
+group :sqlite do
+  gem 'sqlite3-ruby', '~> 1.2.5', :require => nil
 end
 
 group :test, :development do
@@ -61,6 +65,7 @@ group :test, :development do
   gem 'fuubar'
   gem 'faker', :require => nil
   gem 'timecop', :require => 'timecop'
+  gem 'active_reload'
 end
 
 # we don't call the group :test because we don't want them auto-required

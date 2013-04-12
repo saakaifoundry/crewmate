@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   concerned_with  :activation,
                   :avatar,
                   :authentication,
+                  :authentication_ldap,
                   :conversions,
                   :recent_projects,
                   :roles,
@@ -79,6 +80,7 @@ class User < ActiveRecord::Base
                   :people_attributes,
                   :google_calendar_url_token,
                   :auto_accept_invites
+                  :uses_ldap_authentication
 
   attr_accessor   :activate, :old_password
 
@@ -87,6 +89,7 @@ class User < ActiveRecord::Base
   
   before_create :init_user
   after_create :clear_invites
+  after_create :join_default_organizations
   before_save :update_token
 
   def update_token
@@ -224,7 +227,8 @@ class User < ActiveRecord::Base
   end
 
   def can_create_project?
-    true
+    # is in any organization?
+    !organizations.empty? or supervisor? || Teambox.config.user_can_create_organization 
   end
 
   DELETED_TAG = "deleted"
@@ -240,6 +244,16 @@ class User < ActiveRecord::Base
     login =~ DELETED_REGEX
     update_attribute :login, Regexp.last_match(1).to_s if login =~ DELETED_REGEX
     update_attribute :email, Regexp.last_match(1).to_s if email =~ DELETED_REGEX
+  end
+
+  def link_to_app(provider, uid, credentials)
+    link = AppLink.new
+    link.user              = self
+    link.provider          = provider
+    link.app_user_id       = uid
+    link.access_token      = credentials ? credentials[:token] : nil
+    link.access_secret     = credentials ? credentials[:secret] : nil
+    link.save!
   end
 
   def self.find_available_login(proposed_login = nil)
@@ -284,8 +298,16 @@ class User < ActiveRecord::Base
     @users_for_user_map ||= self.organizations.map{|o| o.users + o.users_in_projects }.flatten.uniq
   end
 
+  def supervisor?
+    Teambox.config.supervisors? and Teambox.config.supervisors.include?(login)
+  
   def keyboard_shortcuts
     !!settings['keyboard_shortcuts']
+  end
+
+  def join_default_organizations
+    Organization.find_all_by_default(true).each do |target|
+      target.add_member(self, Membership::ROLES[:participant])
   end
 
   def keyboard_shortcuts=(v)
