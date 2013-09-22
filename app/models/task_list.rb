@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class TaskList < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   include Watchable
 
@@ -48,7 +48,7 @@ class TaskList < RoleRecord
   end
 
   define_index do
-    where TaskList.undeleted_clause_sql
+    where TaskList.paranoid_default_scope_sql
 
     indexes name, :sortable => true
     has project_id, created_at, updated_at

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class TeamboxData < ActiveRecord::Base
   set_table_name("teambox_datas") # Backward compatibility
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   belongs_to :user
   concerned_with :serialization, :attributes, :teambox, :basecamp

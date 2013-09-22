@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Task < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   include Watchable
 
@@ -200,7 +200,7 @@ class Task < RoleRecord
   end
 
   define_index do
-    where Task.undeleted_clause_sql
+    where Task.paranoid_default_scope_sql
 
     indexes name, :sortable => true
 

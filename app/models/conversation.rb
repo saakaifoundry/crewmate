@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Conversation < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   # needed for `truncate`
   include ActionView::Helpers::TextHelper
@@ -98,7 +98,7 @@ class Conversation < RoleRecord
   end
 
   define_index do
-    where Conversation.undeleted_clause_sql
+    where Conversation.paranoid_default_scope_sql
 
     indexes name, :sortable => true
 

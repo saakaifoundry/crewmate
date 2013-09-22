@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class GoogleDoc < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
   belongs_to :user
   belongs_to :project
   belongs_to :comment, :touch => true

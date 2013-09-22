@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Note < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   belongs_to :page
   belongs_to :project

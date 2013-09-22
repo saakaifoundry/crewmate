@@ -3,7 +3,7 @@
 # A Person model describes the relationship of a User that follows a Project.
 
 class Person < ActiveRecord::Base
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   belongs_to :user
   belongs_to :project

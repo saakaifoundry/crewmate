@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Page < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
   has_many :notes, :dependent => :destroy
   has_many :dividers, :dependent => :destroy
   has_many :uploads, :dependent => :destroy
@@ -174,7 +174,7 @@ class Page < RoleRecord
   end
 
   define_index do
-    where Page.undeleted_clause_sql
+    where Page.paranoid_default_scope_sql
 
     indexes name, :sortable => true
     indexes description

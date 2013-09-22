@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Organization < ActiveRecord::Base
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
   include Metadata
   extend Metadata::Defaults
 

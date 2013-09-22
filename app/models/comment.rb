@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Comment < ActiveRecord::Base
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
 
   extend ActiveSupport::Memoizable
 

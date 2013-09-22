@@ -2,7 +2,7 @@
 require 'digest/sha1'
 
 class Invitation < RoleRecord
-  include Immortal
+  acts_as_paranoid :column => 'deleted', :type => 'boolean'
   belongs_to :invited_user, :class_name => 'User'
 
   validate :valid_user?
