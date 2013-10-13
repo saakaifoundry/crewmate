@@ -1,7 +1,8 @@
 # Crewmate
-## Collaboration just got better
 
-Crewmate is a project management software, formerly [Teambox](http://teambox.com/), built on Ruby on Rails with a focus on collaboration.
+[![Build Status](https://travis-ci.org/crewmate/crewmate.png?branch=master)](https://travis-ci.org/crewmate/crewmate) [![Code Climate](https://codeclimate.com/github/crewmate/crewmate.png)](https://codeclimate.com/github/crewmate/crewmate) [![Dependency Status](https://gemnasium.com/crewmate/crewmate.png)](https://gemnasium.com/crewmate/crewmate) [![Stories in Ready](http://badge.waffle.io/crewmate/crewmate.png)](http://waffle.io/crewmate/crewmate)
+
+Crewmate is a project management software, a community fork of [Teambox v3](https://github.com/teambox/teambox), built on Ruby on Rails with a focus on collaboration.
 
 Crewmate workflow is project-centered; each project being visible only to people invited to it.
 Projects have a status wall, conversations, tasks, shared pages and file uploads.
@@ -16,13 +17,6 @@ Project info
 - End user guide: <http://guide.teambox.com>
 - Open-source contributors: <http://github.com/crewmate/crewmate/contributors>
 - License: [GNU Affero GPL 3](https://github.com/crewmate/crewmate/blob/master/LICENSE)
-
-Code statuses
--------------
-
-* [![Build Status](https://travis-ci.org/cvut/teambox.png)](https://travis-ci.org/cvut/teambox) 
-* [![Code Climate](https://codeclimate.com/github/cvut/teambox.png)](https://codeclimate.com/github/cvut/teambox) 
-* [![Dependency Status](https://gemnasium.com/cvut/teambox.png)](https://gemnasium.com/cvut/teambox)
 
 Installation
 ------------
