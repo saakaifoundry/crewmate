@@ -45,6 +45,7 @@ gem 'immortal', :git => 'git://github.com/davidmm/immortal.git', :branch => 'pos
 gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer'
 gem 'jammit'
 gem 'rake', '0.9.2'
+gem 'thin'
 
 group :development do
   gem 'debugger'
@@ -55,7 +56,6 @@ group :sqlite do
 end
 
 group :test, :development do
-  gem 'thin'
   gem 'rspec-rails', '~> 2.4.1'
   gem 'webrat'
   gem 'fuubar'
