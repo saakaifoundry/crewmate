@@ -10,8 +10,8 @@ stylesheets:
     - public/stylesheets/mobile.css
   print:
     - public/stylesheets/print.css
-  public_projects:
-    - public/stylesheets/public_projects.css
+  public:
+    - public/stylesheets/public.css
   sessions:
     - public/stylesheets/sessions.css
   sites:
