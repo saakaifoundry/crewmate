@@ -33,8 +33,8 @@ gem 'tilt'
 gem 'choices', :git => "git://github.com/teambox/choices.git"
 
 gem "will_paginate", :git=>"git://github.com/mislav/will_paginate.git", :branch=>"rails3"
-gem 'thinking-sphinx', '2.0.1', :require => 'thinking_sphinx'
-gem 'sprockets-rails', '~> 0.0.1'
+gem 'thinking-sphinx', :require => 'thinking_sphinx'
+gem 'sprockets-rails'
 gem 'sprockets', '1.0.2'
 gem 'barista', '~> 1.0'
 gem 'vestal_versions', '~> 1.2.2', :git => 'git://github.com/adamcooper/vestal_versions'
