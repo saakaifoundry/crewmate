@@ -5,7 +5,7 @@ group :rails do
   gem 'builder', '~> 2.1.2'
   gem 'memcache-client', '>= 1.7.4', require: nil
   gem 'tzinfo', '~> 0.3.12'
-  gem 'i18n', '>= 0.1.3'
+  gem 'i18n', '0.5.0'
   gem 'tmail', '~> 1.2.3'
   gem 'text-format', git: 'git://github.com/ccarruitero/text-format.git'
 end
