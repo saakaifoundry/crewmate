@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 group :rails do
   gem 'rails', '~> 3.0.20'
   gem 'builder', '~> 2.1.2'
-  gem 'memcache-client', '>= 1.7.4', require: nil
+  gem 'dalli' #a Memcache client
   gem 'tzinfo', '~> 0.3.12'
   gem 'i18n', '0.5.0'
   gem 'tmail', '~> 1.2.3'
@@ -11,7 +11,7 @@ group :rails do
 end
 
 #Temporary hack - Fix once this ticket: is resolved
-gem 'activesupport-i18n-patch', git: 'git://github.com/teambox/activesupport-i18n-patch.git'
+#gem 'activesupport-i18n-patch', git: 'git://github.com/teambox/activesupport-i18n-patch.git'
 
 gem 'nokogiri'
 gem 'SystemTimer', '~> 1.2.0', require: 'system_timer', platform: :mri_18
