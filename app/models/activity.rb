@@ -10,9 +10,7 @@ class Activity < ActiveRecord::Base
   scope :for_conversations, lambda{ where("target_type = 'Conversation' OR comment_target_type = 'Conversation'") }
   scope :for_tasks, where("target_type = ? OR comment_target_type = ?", "Task", "Task" )
   scope :in_targets, lambda {|targets| where ["target_id IN (?) OR comment_target_id IN (?)", *(Array(targets).collect(&:id)*2)] }
-
   scope :latest, lambda{ limit_per_page.by_id }
-
   scope :in_projects, lambda { |projects| where(:project_id => Array(projects).collect(&:id)) }
   scope :limit_per_page, lambda{ limit(Teambox.config.activities_per_page) }
   scope :by_id, lambda{ order('id DESC') }
