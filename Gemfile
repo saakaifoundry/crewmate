@@ -56,7 +56,7 @@ group :sqlite do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.4.1'
+  gem 'rspec-rails', '~> 2.14.1'
   gem 'webrat'
   gem 'fuubar'
   gem 'faker', require: nil
