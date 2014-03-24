@@ -37,7 +37,7 @@ RSpec.configure do |config|
   database_adapter = ActiveRecord::Base.connection.adapter_name.downcase.to_sym
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = database_adapter.eql?(:sqlite) ? :truncation : :transaction
     DatabaseCleaner.clean_with :truncation
   end
 
