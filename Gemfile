@@ -64,6 +64,8 @@ group :test, :development do
   gem 'active_reload'
   gem 'better_errors'
   gem 'pry-rails'
+  gem 'pry-debugger'
+  gem 'webmock'
   gem 'guard-rspec'
 end
 
