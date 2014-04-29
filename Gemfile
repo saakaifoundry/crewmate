@@ -57,7 +57,6 @@ end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.14.1'
-  gem 'webrat'
   gem 'fuubar'
   gem 'faker', require: nil
   gem 'timecop', require: 'timecop'
@@ -76,8 +75,8 @@ group :testing do
   gem 'factory_girl', '~> 1.3.2'
   gem 'pickle', '~> 0.4.4'
   gem 'cucumber-rails', '~> 0.3.2', require: nil
-  gem 'cucumber', '~> 0.10.0'
-  gem 'headless', require: nil
-  gem 'capybara', '~> 0.4.0'
+  gem 'cucumber', '~> 1.2.1'
+  gem 'capybara', '~> 2.2.1'
+  gem 'poltergeist', '~> 1.5.0'
   gem 'launchy', '~> 0.3.7'
 end
