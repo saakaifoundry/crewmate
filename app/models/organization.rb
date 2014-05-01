@@ -21,7 +21,6 @@ class Organization < ActiveRecord::Base
   validates_exclusion_of  :permalink, :in => %w(www help support mail pop smtp ftp guide)
   validates_format_of     :permalink, :with => /^[\w\_\-]+$/
 
-  validate :ensure_unicity_for_community_version, :on => :create, :unless => :is_example
   validate :forbid_if_change_default_is_disabled
 
   before_destroy :prevent_if_projects
@@ -129,12 +128,6 @@ class Organization < ActiveRecord::Base
   end
 
   protected
-
-    def ensure_unicity_for_community_version
-      if Teambox.config.community && new_record?
-        errors.add(:base, "Can't have more than one organization") if Organization.count > 0
-      end
-    end
 
     def prevent_if_projects
       projects.empty?
