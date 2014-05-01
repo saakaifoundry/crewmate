@@ -1231,26 +1231,25 @@ es:
       submit: "Guardar cambios"
       there_are: "Aqui están"
       title: "Configuración para %{organization} "
-    external_view: 
-      create_your_own_org_html: "Sin embargo, puedes <a href='%{link}'>crear tu propia organización</a> para tus proyectos."
+    external_view:
       request_permission: "Para acceder a esta organización, debes pedir permiso a uno de los administradores:"
       title: "%{name}"
       you_cant_access: "Usted no tiene permiso de acceso o editar esta organización."
-    fields: 
+    fields:
       domain_html: "Dominio <em>Puedes utilizar tu propio dominio para tu organización, compruébalo en la <a href='https://github.com/crewmate/crewmate/wiki/custom-domain' title='Cómo utilizar tu propio dominio para tu organización en Crewmate'>documentación</a>.</em>"
       name_html: "Nombre de la organización"
       name_placeholder: "Tu organización"
       permalink_html: "Código de la organización corto <em>No se permiten espacios. Será utilizado para la dirección web.</em>"
-    index: 
-      about: 
+    index:
+      about:
         explain1: "Una organización que permite a los proyectos del grupo y los usuarios bajo un nombre de marca."
         explain2: "Usted puede incluir un enlace a su propio dominio para personalizar su espacio Crewmate. Use su propio logo y la página de inicio de sesión, y puede compartirlo con sus clientes"
         title: "Sobre Organizaciones"
-      new: 
+      new:
         create: "+ Crear una nueva organización"
         explain: "Marca con su propio logotipo y página web, y crear proyectos en el interior."
       title: Organizaciones
-    invoices: 
+    invoices:
       address: Dirección
       amount: Cantidad
       company: Compañía
