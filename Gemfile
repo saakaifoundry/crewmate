@@ -21,9 +21,6 @@ gem 'libxml-ruby'
 gem 'rdiscount', '~> 1.6.3'
 gem 'haml'
 gem 'sass'
-gem 'mysql2', '~> 0.2.0', group: 'mysql'
-# gem 'mysql', '~> 2.8.1', :require => nil, :group => 'mysql'
-gem 'pg', group: 'pg'
 gem 'aws-s3', '~> 0.6.2', require: 'aws/s3'
 gem 'hpricot', '~> 0.8.2'
 gem 'json'
@@ -47,12 +44,18 @@ gem 'jammit'
 gem 'rake', '0.9.2'
 gem 'thin'
 
-group :development do
-  gem 'debugger'
-end
 
-group :sqlite do
-  gem 'sqlite3'
+gem 'mysql2', '~> 0.2.0', group: 'mysql'
+# gem 'mysql', '~> 2.8.1', :require => nil, :group => 'mysql'
+gem 'pg', group: 'pg'
+gem 'sqlite3', group: 'sqlite'
+
+group :development do
+  gem 'pry-rails'
+  gem 'pry-debugger'
+  gem 'better_errors'
+  gem 'active_reload' # DEPRECATED
+  gem 'guard-rspec', require: false
 end
 
 group :test, :development do
@@ -61,12 +64,7 @@ group :test, :development do
   gem 'fuubar'
   gem 'faker', require: nil
   gem 'timecop', require: 'timecop'
-  gem 'active_reload'
-  gem 'better_errors'
-  gem 'pry-rails'
-  gem 'pry-debugger'
   gem 'webmock'
-  gem 'guard-rspec'
 end
 
 # we don't call the group :test because we don't want them auto-required
