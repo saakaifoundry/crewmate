@@ -15,7 +15,7 @@ class ApiV1::OrganizationsController < ApiV1::APIController
   def create
     @organization = current_user.organizations.new(params)
 
-    if !Teambox.config.community and @organization.save
+    if @organization.save
       membership = @organization.memberships.build(:role => Membership::ROLES[:admin])
       membership.user_id = current_user.id
       membership.save!

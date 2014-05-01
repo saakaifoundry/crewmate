@@ -239,7 +239,7 @@ class UsersController < ApplicationController
     def can_users_signup?
       unless @invitation || signups_enabled?
         flash[:error] = t('users.new.no_public_signup')
-        return redirect_to Teambox.config.community ? login_path : root_path
+        redirect_to root_path
       end
     end
 end

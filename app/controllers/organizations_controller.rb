@@ -3,7 +3,6 @@ class OrganizationsController < ApplicationController
   skip_before_filter :load_project
   before_filter :load_organization, :only => [:show, :edit, :appearance, :update, :projects, :delete, :destroy]
   before_filter :load_page_title, :only => [:show, :members, :projects, :edit, :appearance, :update, :delete]
-  before_filter :redirect_community, :only => [:index, :new, :create]
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |f|
@@ -112,13 +111,6 @@ class OrganizationsController < ApplicationController
 
     def load_page_title
       @page_title = h(@organization)
-    end
-
-    def redirect_community
-      if Teambox.config.community
-        flash[:error] = t('organizations.not_in_community')
-        redirect_to root_path
-      end
     end
 
 end
