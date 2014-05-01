@@ -34,8 +34,7 @@
         .el= link_to t('.people'), project_people_path(project), :class => 'people ajax'
     - if projects_archived > 0
       .el= link_to t('.show_all_projects'), all_projects_path, :class => 'more ajax'
-    - if !Teambox.config.community || (Teambox.config.community && !@community_organization) || (@community_organization && @community_role)
-      .el= link_to t('.new_project'), new_project_path, :class => 'more ajax'
+    .el= link_to t('.new_project'), new_project_path, :class => 'more ajax'
 
   -# My Tasks
   - pending_tasks = current_user.pending_tasks
@@ -63,8 +62,7 @@
           .el= link_to t('organizations.column.admin_users'), organization_memberships_path(organization), :class => 'ajax'
           .el= link_to t('organizations.column.appearance'), appearance_organization_path(organization), :class => ''
           .el= link_to t('organizations.column.delete'), delete_organization_path(organization), :class => 'ajax'
-    - unless Teambox.config.community
-      .el= link_to t('.show_all_organizations'), organizations_path, :class => 'more ajax'
+    .el= link_to t('.show_all_organizations'), organizations_path, :class => 'more ajax'
 
   -# More options
   .el#show_more= link_to t('.show_more'), "#", :class => 'show_more'

@@ -32,10 +32,8 @@ module ProjectsHelper
   end
 
   def new_project_link
-    if !Teambox.config.community || (@community_organization && !@community_role.nil?)
-      link_to content_tag(:span, t('.new_project')), new_project_path,
+    link_to content_tag(:span, t('.new_project')), new_project_path,
         :class => 'add_button', :id => 'new_project_link'
-    end
   end
 
   def project_fields(f,project,sub_action='new')
