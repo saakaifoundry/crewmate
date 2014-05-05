@@ -40,7 +40,7 @@ end
 
 When /^(?:|I )follow "([^\"]*)"(?: within "([^\"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    click_link(link)
+    first(:link, link).click
   end
 end
 
@@ -143,19 +143,24 @@ Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
 end
 
 Then /^(?:|I )should see '([^\']*)'(?: within '([^\']*)')?$/ do |text, selector|
-  if Capybara.current_driver == Capybara.javascript_driver
-    with_scope(selector) do
-      assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
-    end
-  elsif page.respond_to? :should
-    with_scope(selector) do
-      page.should have_content(text)
-    end
-  else
-    with_scope(selector) do
-      assert page.has_content?(text)
-    end
+  with_scope(selector) do
+    page.should have_content(text)
   end
+
+  # if Capybara.current_driver == Capybara.javascript_driver
+  #   with_scope(selector) do
+  #     # "./descendant-or-self::*[contains(normalize-space(.), '#{text}')]"
+  #     assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
+  #   end
+  # elsif page.respond_to? :should
+  #   with_scope(selector) do
+  #     page.should have_content(text)
+  #   end
+  # else
+  #   with_scope(selector) do
+  #     assert page.has_content?(text)
+  #   end
+  # end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selector|
@@ -193,19 +198,23 @@ Then /^(?:|I )should not see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selec
 end
 
 Then /^(?:|I )should not see '([^\']*)'(?: within '([^\']*)')?$/ do |text, selector|
-  if Capybara.current_driver == Capybara.javascript_driver
-    with_css_scope(selector) do |scope|
-      assert scope.has_xpath?(XPath::HTML.content(text), :visible => true)
-    end
-  elsif page.respond_to? :should
-    with_scope(selector) do
-      page.should have_no_content(text)
-    end
-  else
-    with_scope(selector) do
-      assert page.has_no_content?(text)
-    end
+  with_scope(selector) do
+    page.should have_no_content(text)
   end
+
+  # if Capybara.current_driver == Capybara.javascript_driver
+  #   with_css_scope(selector) do |scope|
+  #     assert scope.has_xpath?(XPath::HTML.content(text), :visible => true)
+  #   end
+  # elsif page.respond_to? :should
+  #   with_scope(selector) do
+  #     page.should have_no_content(text)
+  #   end
+  # else
+  #   with_scope(selector) do
+  #     assert page.has_no_content?(text)
+  #   end
+  # end
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selector|

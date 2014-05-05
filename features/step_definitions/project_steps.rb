@@ -89,26 +89,28 @@ end
 
 Then /^(?:|I )should see the unconfirmed email message$/ do
   text = "An email was sent to this user, but they still haven't confirmed"
+  page.should have_content(text)
 
-  if Capybara.current_driver == Capybara.javascript_driver
-    assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
-  elsif page.respond_to? :should
-    page.should have_content(text)
-  else
-    assert page.has_content?(text)
-  end
+  # if Capybara.current_driver == Capybara.javascript_driver
+  #   assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
+  # elsif page.respond_to? :should
+  #   page.should have_content(text)
+  # else
+  #   assert page.has_content?(text)
+  # end
 end
 
 Then /^(?:|I )should see the unauthorized private project message/ do
   text = "This is a private project and you're not authorized to access it."
+  page.should have_content(text)
 
-  if Capybara.current_driver == Capybara.javascript_driver
-    assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
-  elsif page.respond_to? :should
-    page.should have_content(text)
-  else
-    assert page.has_content?(text)
-  end
+  # if Capybara.current_driver == Capybara.javascript_driver
+  #   assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
+  # elsif page.respond_to? :should
+  #   page.should have_content(text)
+  # else
+  #   assert page.has_content?(text)
+  # end
 end
 
 Given /^there is a project with a conversation$/ do

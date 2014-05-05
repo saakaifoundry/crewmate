@@ -162,13 +162,15 @@ When /^(?:|I )select "([^\"]*)" in the "([^\"]*)" calender?$/ do |number, calend
 end
 
 Then /^(?:|I )should see "([^\"]*)" status change?$/ do |text|
-  if Capybara.current_driver == Capybara.javascript_driver
-    assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
-  elsif page.respond_to? :should
-    page.should have_content(text)
-  else
-    assert page.has_content?(text)
-  end
+  page.should have_content(text)
+
+  # if Capybara.current_driver == Capybara.javascript_driver
+  #   assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
+  # elsif page.respond_to? :should
+  #   page.should have_content(text)
+  # else
+  #   assert page.has_content?(text)
+  # end
 end
 
 Then /^I should see "([^\"]+)" in the task thread title$/ do |msg|
