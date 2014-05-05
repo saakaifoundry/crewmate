@@ -6,7 +6,7 @@ When /^the search index is re(indexed|built)$/ do |action|
 end
 
 When /^I fill in the search box with "(.+)"$/ do |value|
-  When(%(I fill in "q" with "#{value}"))
+  step(%(I fill in "q" with "#{value}"))
 end
 
 When /^I submit the search/ do
@@ -41,7 +41,7 @@ Given /^there is a task titled "(.+)" in the project "(.+)"$/ do |title, project
 end
 
 When /^I search for "(.+)"$/ do |terms|
-  When %(I go to the results page for "#{terms}")
+  step %(I go to the results page for "#{terms}")
 end
 
 Then /^(?:|I )should see "([^\"]*)" in the results$/ do |text|

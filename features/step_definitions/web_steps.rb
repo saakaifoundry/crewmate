@@ -70,7 +70,7 @@ end
 When /^(?:|I )fill in the following(?: within "([^\"]*)")?:$/ do |selector, fields|
   with_scope(selector) do
     fields.rows_hash.each do |name, value|
-      When %{I fill in "#{name}" with "#{value}"}
+      step %{I fill in "#{name}" with "#{value}"}
     end
   end
 end
@@ -78,7 +78,7 @@ end
 When /^(?:|I )select the following(?: within "([^\"]*)")?:$/ do |selector, fields|
   with_scope(selector) do
     fields.rows_hash.each do |value, name|
-      When %{I select "#{name}" from "#{value}"}
+      step %{I select "#{name}" from "#{value}"}
     end
   end
 end
@@ -222,9 +222,6 @@ Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, s
   end
 end
 
-
-
-
 Then /^the "([^\"]*)" field(?: within "([^\"]*)")? should contain "([^\"]*)"$/ do |field, selector, value|
   with_scope(selector) do
     field = find_field(field)
@@ -329,7 +326,7 @@ When /^(.*) confirming with OK$/ do |main_task|
     page.evaluate_script("window.confirm = function(msg) { return true; }")
   end
 
-  When main_task
+  step main_task
 
   if Capybara.current_driver == Capybara.javascript_driver
     page.evaluate_script("window.alert = window.old_alert")
