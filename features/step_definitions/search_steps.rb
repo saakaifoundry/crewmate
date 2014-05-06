@@ -46,24 +46,8 @@ end
 
 Then /^(?:|I )should see "([^\"]*)" in the results$/ do |text|
   page.should have_content(text)
-
-  # if Capybara.current_driver == Capybara.javascript_driver
-  #   page.has_xpath?(XPath::HTML.content(text), :visible => true)
-  # elsif page.respond_to? :should
-  #   page.should have_content(text)
-  # else
-  #   assert page.has_content?(text)
-  # end
 end
 
 Then /^(?:|I )should not see "([^\"]*)" in the results$/ do |text|
   page.should_not have_content(text)
-
-  # if Capybara.current_driver == Capybara.javascript_driver
-  #   assert page.has_no_xpath?(XPath::HTML.content(text), :visible => true)
-  # elsif page.respond_to? :should
-  #   page.should_not have_content(text)
-  # else
-  #   assert page.has_no_content?(text)
-  # end
 end

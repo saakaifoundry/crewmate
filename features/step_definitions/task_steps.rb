@@ -113,7 +113,7 @@ Then /^I should not see the following tasks:$/ do |table|
 end
 
 Then /^I should see the task "([^\"]*)" before "([^\"]*)"$/ do |task1, task2|
-  step.find_by_name(task1).position.should < Task.find_by_name(task2).position
+  Task.find_by_name(task1).position.should < Task.find_by_name(task2).position
 end
 
 Then /^I fill the task comment box with "([^\"]*)"$/ do |text|
@@ -163,14 +163,6 @@ end
 
 Then /^(?:|I )should see "([^\"]*)" status change?$/ do |text|
   page.should have_content(text)
-
-  # if Capybara.current_driver == Capybara.javascript_driver
-  #   assert page.has_xpath?(XPath::HTML.content(text), :visible => true)
-  # elsif page.respond_to? :should
-  #   page.should have_content(text)
-  # else
-  #   assert page.has_content?(text)
-  # end
 end
 
 Then /^I should see "([^\"]+)" in the task thread title$/ do |msg|

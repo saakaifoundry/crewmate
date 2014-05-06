@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 {
-  'in the title' => 'h2',
+  'in the title'         => 'h2',
   'in the watchers list' => '.watching',
-  'as a button' => 'a.button, button',
-  'in the preview' => '.previewBox'
+  'as a button'          => 'a.button, button',
+  'in the preview'       => '.previewBox'
 }.
 each do |within, selector|
   Then /^(?:|I )should( not)? see "([^\"]*)" #{within}$/ do |negate, text|
     with_scope(selector) do
-      if content = page['innerHTML']
-        assert negate ? !content.include?(text) : content.include?(text)
+      if page.html.present?
+        negate ? page.should(has_no_content(text)) : page.should(have_content(text))
       else
         step %(I should#{negate} see "#{text}")
       end
