@@ -94,21 +94,11 @@ Then /^I should see the error "([^\"]*)"(?: within "([^\"]*)")?$/ do |msg, selec
 end
 
 Then /^I should see "([^\"]+)" in the thread title$/ do |msg|
-  link = false
-  wait_until do
-    link = find("p.thread_title a")
-  end
-  comment = link.text
-  comment.should match(/#{msg}/)
+  find('p.thread_title a').first.should have_content(/#{msg}/)
 end
 
 Then /^I should see "([^\"]+)" in the page title$/ do |msg|
-  header = false
-  wait_until do
-    header = find("h2")
-  end
-  title = header.text
-  title.should match(/#{msg}/)
+  find('h2').first.should have_content(/#{msg}/)
 end
 
 Then /^I should see "([^\"]+)" in the thread starter$/ do |msg|

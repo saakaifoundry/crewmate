@@ -174,10 +174,7 @@ Then /^(?:|I )should see "([^\"]*)" status change?$/ do |text|
 end
 
 Then /^I should see "([^\"]+)" in the task thread title$/ do |msg|
-  link = false
-  wait_until do
-    link = find(".thread[data-class=task] p.thread_title a")
+  with_scope('.thread[data-class=task] p.thread_title') do
+    first(:link).should have_content(/#{msg}/)
   end
-  comment = link.text
-  comment.should match(/#{msg}/)
 end

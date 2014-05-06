@@ -1,7 +1,7 @@
 @javascript
 Feature: Converting a conversation to a task
 
-  Background: 
+  Background:
     Given a project with user @mislav
     And I am logged in as @mislav
 
@@ -95,5 +95,3 @@ Feature: Converting a conversation to a task
     And I should see 'new → hold'
     And I should see 'Dec 29' within 'span.assigned_date'
     And I should see 'Assigned to Saimon Moore' within 'p.assigned_transition'
-
-
