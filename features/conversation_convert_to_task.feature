@@ -1,3 +1,4 @@
+@active
 @javascript
 Feature: Converting a conversation to a task
 
