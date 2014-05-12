@@ -1,4 +1,3 @@
-@active
 @organizations
 Feature: When I use Crewmate community version, there is only one organization
 

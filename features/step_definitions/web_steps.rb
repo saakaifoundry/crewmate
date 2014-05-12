@@ -171,7 +171,7 @@ end
 Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selector|
   with_scope(selector) do
     args = ['//*', {
-      :text => Regexp.new(regexp),
+      :text    => Regexp.new(regexp),
       :visible => Capybara.current_driver == Capybara.javascript_driver
     }]
     if page.respond_to? :should

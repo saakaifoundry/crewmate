@@ -1,4 +1,3 @@
-@active
 @javascript
 Feature: Converting a conversation to a task
 
@@ -12,7 +11,7 @@ Feature: Converting a conversation to a task
     And I follow "Convert to task"
     And I wait for 2 seconds
     And I press "Convert"
-    And I wait for 1 second
+    And I wait for 2 second
     Then I should see "Politics" in the page title
     And I should see "Politics" in the task thread title
 
@@ -26,10 +25,11 @@ Feature: Converting a conversation to a task
     And I wait for 1 second
     Then I should see "Politics" in the task thread title
 
+  @active
   Scenario: Converting a normal conversation when you are a commenter
-    Given I started a conversation named "Politics"
     And I am a commenter in the project called "Ruby Rockstars"
-    When I go to the home page
+    Given I started a conversation named "Politics" in the "Ruby Rockstars" project
+    When I go to the page of the "Ruby Rockstars" project
     And I click the conversation's comment box
     Then I should not see 'Convert to task'
 
