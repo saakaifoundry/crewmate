@@ -51,14 +51,15 @@ gem 'pg', group: 'pg'
 gem 'sqlite3', group: 'sqlite'
 
 group :development do
-  gem 'pry-rails'
-  gem 'pry-debugger'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'active_reload' # DEPRECATED
   gem 'guard-rspec', require: false
 end
 
 group :test, :development do
+  gem 'pry-rails'
+  gem 'pry-debugger'
   gem 'rspec-rails', '~> 2.14.1'
   gem 'fuubar'
   gem 'faker', require: nil
@@ -68,14 +69,10 @@ end
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
-end
-
-# we don't call the group :test because we don't want them auto-required
-group :testing do
   gem 'database_cleaner', '~> 1.2.0'
   gem 'factory_girl', '~> 1.3.2'
   gem 'pickle', '~> 0.4.4'
-  gem 'cucumber-rails', '~> 0.3.2', require: nil
+  gem 'cucumber-rails', '~> 1.0.6', require: nil
   gem 'cucumber', '~> 1.2.1'
   gem 'capybara', '~> 2.2.1'
   gem 'poltergeist', '~> 1.5.0'
