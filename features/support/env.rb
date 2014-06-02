@@ -35,8 +35,8 @@ Capybara.default_selector  = :css
 Capybara.javascript_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
-    timeout:   600, # TODO: remove, only for development porpouse
-    js_errors: true # TODO: reset on true
+    # js_errors: false,
+    timeout: 600  # TODO: remove, only for debugging porpouse
   })
 end
 
@@ -66,4 +66,5 @@ require 'rack/test/cookie_jar'
 Before do
   # Tests are written to target non-community version, except where noted (I am using the community version)
   Teambox.config.community = false
+  Teambox.config.allow_signups = true
 end
