@@ -29,6 +29,8 @@ Contributing
 
 Follow our [contributor guide](https://github.com/crewmate/crewmate/wiki/Contributing) on our github wiki.
 
+You don't need to be a programmer to contribute to the project, you can contribute ideas and help with debugging in the [Issues queue](https://github.com/crewmate/crewmate/issues). You can also [help with translation of the project](https://www.transifex.com/projects/p/crewmate/), we work these translations through Transifex and it has an intuitive web interface. Contact us to get involved! :)
+
 Thanks to the many Ruby projects we're using and the Famfamfam icon collection.
 
 Community
