@@ -22,11 +22,12 @@ require 'capybara/cucumber'
 require 'capybara/session'
 require 'capybara/poltergeist'
 
+require 'email_spec'
 require 'email_spec/cucumber'
 
 
 # Capybara.default_wait_time = 2
-Capybara.default_selector  = :css
+Capybara.default_selector = :css
 
 
 ##

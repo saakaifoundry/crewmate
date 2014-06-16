@@ -29,4 +29,4 @@ teambox2
 *.swp
 config/teambox.yml
 config/crewmate.yml
-
+.env

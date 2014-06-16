@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 
-group :rails do
-  gem 'rails', '~> 3.0.20'
-  gem 'builder', '~> 2.1.2'
-  gem 'dalli' #a Memcache client
-  gem 'tzinfo', '~> 0.3.12'
-  gem 'i18n', '0.5.0'
-  gem 'tmail', '~> 1.2.3'
-  gem 'text-format', git: 'git://github.com/ccarruitero/text-format.git'
-end
+gem 'rails', '~> 3.0.20'
+
+gem 'builder', '~> 2.1.2'
+gem 'dalli' #a Memcache client
+gem 'tzinfo', '~> 0.3.12'
+gem 'i18n', '0.5.0'
+gem 'tmail', '~> 1.2.3'
+gem 'text-format', git: 'git://github.com/ccarruitero/text-format.git'
 
 #Temporary hack - Fix once this ticket: is resolved
 #gem 'activesupport-i18n-patch', git: 'git://github.com/teambox/activesupport-i18n-patch.git'
@@ -44,30 +43,32 @@ gem 'jammit'
 gem 'rake', '0.9.2'
 gem 'thin'
 
-
-gem 'mysql2', '~> 0.2.0', group: 'mysql'
 # gem 'mysql', '~> 2.8.1', :require => nil, :group => 'mysql'
-gem 'pg', group: 'pg'
+gem 'mysql2', '~> 0.2.0',  group: 'mysql'
 gem 'sqlite3', group: 'sqlite'
+gem 'pg',      group: 'pg'
 
-group :development do
+group :debug do
+  gem 'pry-rails'
+  gem 'pry-debugger'
   gem 'better_errors'
   gem 'binding_of_caller'
+end
+
+group :development do
   gem 'active_reload' # DEPRECATED
-  gem 'guard-rspec', require: false
+  gem 'guard-rspec', require: nil
+  gem 'faker',       require: nil
 end
 
 group :test, :development do
-  gem 'pry-rails'
-  gem 'pry-debugger'
+  gem 'dotenv-rails'
   gem 'rspec-rails', '~> 2.14.1'
-  gem 'fuubar'
-  gem 'faker', require: nil
   gem 'timecop', require: 'timecop'
-  gem 'webmock'
 end
 
 group :test do
+  gem 'webmock'
   gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner', '~> 1.2.0'
   gem 'factory_girl', '~> 1.3.2'
@@ -77,4 +78,5 @@ group :test do
   gem 'capybara', '~> 2.2.1'
   gem 'poltergeist', '~> 1.5.0'
   gem 'launchy', '~> 0.3.7'
+  gem 'email_spec', '~> 1.1.1'
 end

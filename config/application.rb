@@ -4,7 +4,10 @@ require 'rails/all'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+if defined?(Bundler)
+  Bundler.require(:default, Rails.env)
+  Bundler.require(:debug) if ENV['DEBUG']
+end
 
 module Teambox
 
