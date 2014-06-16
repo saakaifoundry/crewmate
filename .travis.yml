@@ -13,8 +13,8 @@ branches:
 before_script:
   - "cp -v config/database.${DB}.yml config/database.yml"
   - "cp -v config/crewmate.example.yml config/crewmate.yml"
-  - bundle exec rake db:create db:schema:load RAILS_ENV=test
-script: "bundle exec rake spec"
+  - "bundle exec rake db:create db:schema:load RAILS_ENV=test"
+script: "bundle exec rake spec && bundle exec cucumber"
 matrix:
   allow_failures:
     - rvm: 2.0.0
