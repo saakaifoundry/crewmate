@@ -363,15 +363,17 @@ describe Comment do
       comment.body.should == "File deleted"
     end
 
-    it "touches comment on upload destroy" do
-      upload = Factory.create :upload
+    it "touches comment on upload destroy", focus: true do
+      updated_at = 15.minutes.ago
+      upload  = Factory.create :upload
       comment = Factory.create :comment, :upload_ids => [upload.id.to_s],
         :body => "Can't touch this"
-      Comment.update_all({:updated_at => 15.minutes.ago}, :id => comment.id)
 
-      comment.reload.updated_at.should be_within(1).of(15.minutes.ago)
+      Comment.update_all({:updated_at => updated_at}, :id => comment.id)
+
+      expect(comment.reload.updated_at).to be_within(2).of(updated_at)
       upload.reload.destroy
-      comment.reload.updated_at.should be_within(1).of(Time.now)
+      expect(comment.reload.updated_at).to be_within(2).of(Time.now)
     end
   end
 
