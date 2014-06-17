@@ -363,7 +363,7 @@ describe Comment do
       comment.body.should == "File deleted"
     end
 
-    it "touches comment on upload destroy", focus: true do
+    it "touches comment on upload destroy" do
       updated_at = 15.minutes.ago
       upload  = Factory.create :upload
       comment = Factory.create :comment, :upload_ids => [upload.id.to_s],

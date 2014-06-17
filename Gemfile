@@ -69,12 +69,13 @@ end
 
 group :test do
   gem 'webmock'
-  gem 'codeclimate-test-reporter', require: nil
+  gem 'codeclimate-test-reporter', require: false
   gem 'database_cleaner', '~> 1.2.0'
   gem 'factory_girl', '~> 1.3.2'
   gem 'pickle', '~> 0.4.4'
-  gem 'cucumber-rails', '~> 1.0.6', require: nil
-  gem 'cucumber', '~> 1.2.1'
+  gem 'cucumber-rails', require: false
+  # gem 'cucumber-rails', '~> 1.0.6', require: false
+  # gem 'cucumber', '~> 1.2.1'
   gem 'capybara', '~> 2.2.1'
   gem 'poltergeist', '~> 1.5.0'
   gem 'launchy', '~> 0.3.7'
