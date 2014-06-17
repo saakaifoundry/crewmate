@@ -9,7 +9,8 @@ ENV["RAILS_ENV"] ||= 'cucumber'
 
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
-require 'pry' # TODO: remove, only for development porpouse
+
+require 'pry' if ENV['DEBUG']
 
 require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
 require 'cucumber/rails/rspec'
@@ -28,7 +29,6 @@ require 'email_spec/cucumber'
 
 # Capybara.default_wait_time = 2
 Capybara.default_selector = :css
-
 
 ##
 # Poltergeist - A PhantomJS driver for Capybara
