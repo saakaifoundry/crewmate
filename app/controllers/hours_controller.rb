@@ -32,7 +32,8 @@ class HoursController < ApplicationController
       ['project_id IN (?) AND created_at >= ? AND created_at < ? AND hours > 0',
         current_user.project_ids, @start_date, @end_date]
     end
-    @comments = Comment.find(:all, :conditions => conditions, :include => [:project, :user, :target])
+
+    @comments = Comment.includes(:project, :user, :target).where(conditions)
 
     respond_to do |format|
       format.html { }
@@ -106,13 +107,11 @@ private
   end
 
   def hours_time(prefix)
-    begin
-      return Date.civil(params[prefix+'_year'].to_i,
-                        params[prefix+'_month'].to_i,
-                        params[prefix+'_day'].to_i)
-    rescue
-      return nil
-    end
+    Date.civil params[prefix+'_year'].to_i,
+               params[prefix+'_month'].to_i,
+               params[prefix+'_day'].to_i
+  rescue
+    nil
   end
 
   def set_year_month(year,month)

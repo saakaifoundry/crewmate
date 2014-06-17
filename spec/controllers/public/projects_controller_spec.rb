@@ -11,15 +11,17 @@ describe Public::ProjectsController do
   describe '#index' do
     it 'should show all public projects' do
       get :index
-      response.should be_success
+
+      expect(response).to be_success
     end
   end
 
   describe '#show' do
     it 'should show public project' do
       get :show, id: @public_project.permalink
-      response.should be_success
-      response.should have_selector 'title', content: @public_project.name
+
+      expect(response).to be_success
+      expect(response.body).to have_title @public_project.name
     end
   end
 end
