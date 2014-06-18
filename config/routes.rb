@@ -34,7 +34,7 @@ Teambox::Application.routes.draw do
 
     match '/logout' => 'sessions#destroy', :as => :logout
     match '/login' => 'sessions#new', :as => :login
-    match '/login/:username' => 'sessions#backdoor', :as => :login_backdoor if Rails.env.cucumber?
+    match '/login/:username' => 'sessions#backdoor', :as => :login_backdoor if Rails.env.test?
 
     match '/register' => 'users#create', :as => :register
     match '/signup' => 'users#new', :as => :signup

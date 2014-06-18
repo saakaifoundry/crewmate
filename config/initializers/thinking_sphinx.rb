@@ -1,4 +1,4 @@
-if Teambox.config.allow_search or Rails.env.test? or Rails.env.cucumber?
+if Teambox.config.allow_search or Rails.env.test?
   require 'thinking_sphinx'
 
   # http://github.com/freelancing-god/thinking-sphinx/issues#issue/140

@@ -211,7 +211,6 @@ class ProjectsController < ApplicationController
     end
 
     def redirect_to_invite_people?
-      Rails.env.cucumber? || Teambox.config.allow_outgoing_email?
+      Teambox.config.allow_outgoing_email?
     end
-
 end

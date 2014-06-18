@@ -17,7 +17,7 @@ end
 
 Given /^@(\w+) exists and is logged in$/ do |username|
   step %(@#{username} exists)
-    step %(I'm logged in as @#{username})
+  step %(I'm logged in as @#{username})
 end
 
 Given /^I am logged in as ([^@][^\"]*)$/ do |login|

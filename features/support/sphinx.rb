@@ -11,7 +11,7 @@ module TSHelpers
     if rebuild
       if ThinkingSphinx.sphinx_running?
         config.controller.stop
-	sleep(2)
+	      sleep(2)
       end
 
       # forces rebuilding index objects to fix polymorphic associations
