@@ -23,7 +23,7 @@ class ResetPasswordsController < ApplicationController
       Emailer.send_email :forgot_password, @reset_password.id
       redirect_to sent_password_path(:email => @reset_password.email)
     else
-      if @reset_password.errors.on(:user)
+      if @reset_password.errors[:user]
         @reset_password.errors.clear
         flash[:error] = I18n.t('reset_passwords.create.not_found_html',
                                 {:email => @reset_password.email, :support => Teambox.config.support})

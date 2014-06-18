@@ -12,14 +12,14 @@
     - if @password
       - if @password.user.errors.invalid?(:password)
         %p.error
-          = @password.user.errors.on(:password)
+          = @password.user.errors[:password]
   .password.text_field
     = f.label :password_confirmation
     = f.password_field :password_confirmation
     - if @password
       - if @password.user.errors.invalid?(:password_confirmation)
         %p.error
-          = @password.user.errors.on(:password_confirmation)
+          = @password.user.errors[:password_confirmation]
   .submit
     = hidden_field_tag :reset_code, params[:reset_code]
     = f.submit t('.submit')

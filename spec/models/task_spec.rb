@@ -40,7 +40,7 @@ describe Task do
   it "should not allow a user to set an arbitrary status" do
     task = Factory.build(:task, :status => 102203)
     task.valid?.should == false
-    task.errors_on(:status).length.should == 1
+    task.errors[:status].length.should == 1
   end
 
   it "doesn't break when assigning user on create" do
@@ -99,7 +99,7 @@ describe Task do
 
       @task.assigned = person
       @task.should_not be_valid
-      @task.errors_on(:assigned).should == ["Assigned user doesn't belong to the project"]
+      @task.errors[:assigned].should == ["Assigned user doesn't belong to the project"]
     end
   end
 
