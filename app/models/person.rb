@@ -46,7 +46,7 @@ class Person < ActiveRecord::Base
   end
 
   def role_name
-    ROLES.index(role)
+    ROLES.key(role)
   end
 
   def to_s
