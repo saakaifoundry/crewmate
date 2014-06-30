@@ -70,8 +70,8 @@ Feature: Converting a conversation to a task
   Scenario: Converting a simple conversation on the overview page and specifying additional task attributes
     Given the following confirmed users exist
     | login  | email                    | first_name | last_name |
-    | pablos | pablo@crewmate.org        | Pablo      | Villalba  |
-    | saimon | saimon@crewmate.org       | Saimon     | Moore     |
+    | pablos | pablo@crewmate.org       | Pablo      | Villalba  |
+    | saimon | saimon@crewmate.org      | Saimon     | Moore     |
     And I am in the project called "Crewmate"
     And all the users are in the project with name: "Crewmate"
     And the following task lists with associations exist:
@@ -93,6 +93,6 @@ Feature: Converting a conversation to a task
     When I press "Convert"
     And I wait for 1 second
     Then I should see "Give git course" in the task thread title
-    And I should see 'new → hold'
-    And I should see 'Dec 29' within 'span.assigned_date'
-    And I should see 'Assigned to Saimon Moore' within 'p.assigned_transition'
+    And I should see 'NEW → HOLD'
+    And I should see 'DEC 29' within 'span.assigned_date'
+    And I should see 'assigned to saimon moore' within 'p.assigned_transition'

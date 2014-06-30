@@ -136,8 +136,10 @@ end
 
 Then /^I select the day "([^\"]*)" with the date picker$/ do |day|
   with_css_scope("div[class='calendar_date_select']") do |node|
-    element = node.all(:xpath,"//*[.='#{day}']").detect {|e| e.tag_name == 'td' && !e['innerHTML'].include?('other')}
-    element.try(:click)
+    element = node.all(:xpath, "//td/div[contains(., '#{day}')]").detect do |e|
+      !e[:class].to_s.include?('other')
+    end
+    element.click
   end
 end
 
@@ -157,7 +159,7 @@ end
 
 When /^(?:|I )select "([^\"]*)" in the "([^\"]*)" calender?$/ do |number, calender|
   with_css_scope("div[id$='_#{calender}_on']") do |node|
-    node.find(:css,"table div[contains(#{number})]").click
+    node.find(:css, "table div[contains(#{number})]").click
   end
 end
 

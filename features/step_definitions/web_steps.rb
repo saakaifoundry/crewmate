@@ -127,7 +127,7 @@ Then /^(?:|I )should see JSON:$/ do |expected_json|
 end
 
 Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
-  with_scope(selector) do
+  with_css_scope(selector) do
     page.should have_content(text)
   end
 end

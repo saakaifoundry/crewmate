@@ -1,13 +1,13 @@
 @javascript
 Feature: Expanded and collapsed mode for activity threads
 
-  Background: 
+  Background:
     Given a project with user @mislav
     And I am logged in as @mislav
     And there is a project with a conversation
 
   Scenario: I can expand and collapse threads globally
-    When I go to the projects page 
+    When I go to the projects page
     Then I should see "Conversation title"
     And I should see "Conversation body"
 

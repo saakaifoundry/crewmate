@@ -4,7 +4,7 @@ Feature: See tasks in different, common groupings
   As a Crewmate developer
   I want to give options to see tasks in different groupings
 
-  Background: 
+  Background:
     Given a project exists with name: "Market Crewmate"
     And a confirmed user exists with login: "balint"
     And I am logged in as @balint
@@ -63,7 +63,7 @@ Feature: See tasks in different, common groupings
     And the task called "Post on Digg and Hacker News" is resolved
     When I go to the "Market Crewmate" tasks page
     And I follow "Show 2 archived tasks"
-    And I wait for .3 seconds
+    And I wait for 1 seconds
     Then I should see the following tasks:
       | task_list_name | task_name                    |
       | This week      | Tell my friends              |

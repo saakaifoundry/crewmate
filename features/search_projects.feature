@@ -4,7 +4,7 @@ Feature: Search comments in projects
   As a Crewmate user
   I want to search for keywords
 
-  Background: 
+  Background:
     Given @voodoo_prince exists and is logged in
     And I am in the project called "Gold Digging"
 
@@ -21,7 +21,7 @@ Feature: Search comments in projects
     And I fill in the comment box with "Let's finish this space elevator before Tuesday."
     And I press "Save"
     And I go to the projects page
-    
+
     When the search index is rebuilt
     And I fill in the search box with "the mine"
     And I submit the search

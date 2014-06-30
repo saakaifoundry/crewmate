@@ -15,17 +15,16 @@ require 'capybara/poltergeist'
 require 'email_spec'
 require 'email_spec/cucumber'
 
-
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
 # Capybara.default_selector = :xpath
 
-
 # Poltergeist - A PhantomJS driver for Capybara
 # Take a look at https://github.com/teampoltergeist/poltergeist#customization for more customizations
 if ENV['DEBUG']
   require 'pry'
+
   # Using poltergeist_debug you can insert page.driver.debug into your tests to pause the test
   # and launch a browser which gives you the WebKit inspector to view your test run with.
   Capybara.javascript_driver = :poltergeist_debug

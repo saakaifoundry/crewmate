@@ -1,7 +1,7 @@
 @javascript @tasks
 Feature: Changing Task Status from New
 
-  Background: 
+  Background:
     Given @mislav exists and is logged in
     And I am currently in the project ruby_rockstars
     And I have a task list called "Building Killer Dinobots"
@@ -21,8 +21,8 @@ Feature: Changing Task Status from New
     When I fill in the comment box with "I fused the dino eggs to the engine"
     And I select "Mislav Marohnić" from "Assigned to"
     And I press "Save"
-    Then I should see "new → open" status change
-    And I should see "Assigned to Mislav Marohnić"
+    Then I should see "NEW → OPEN" status change
+    And I should see "assigned to mislav marohnić"
 
   Scenario: Mislav changes task (new -> hold)
     Given I am on its task page
@@ -30,7 +30,7 @@ Feature: Changing Task Status from New
     And I select "hold" from "Status"
     And I press "Save"
     And I wait for .2 seconds
-    Then I should see "new → hold" status change
+    Then I should see "NEW → HOLD" status change
     And I should see "I need to wait till the engine cools down"
 
   # And I choose "comment_status_2"
@@ -40,7 +40,7 @@ Feature: Changing Task Status from New
     And I select "resolved" from "Status"
     And I press "Save"
     And I wait for .2 seconds
-    Then I should see "new → resolved" status change
+    Then I should see "NEW → RESOLVED" status change
     And I should see "I need to wait till the engine cools down"
 
   Scenario: Mislav changes task (new -> rejected)
@@ -49,7 +49,7 @@ Feature: Changing Task Status from New
     And I select "rejected" from "Status"
     And I press "Save"
     And I wait for .2 seconds
-    Then I should see "new → rejected" status change
+    Then I should see "NEW → REJECTED" status change
     And I should see "I need to wait till the engine cools down"
 
   #Scenario: Mislav shouldn't be able to change task (hold -> new)
@@ -63,7 +63,7 @@ Feature: Changing Task Status from New
     And I select "resolved" from "Status"
     And I press "Save"
     And I wait for 1 second
-    And I should see "hold → resolved" status change
+    And I should see "HOLD → RESOLVED" status change
     And I should see "done!"
 
   Scenario: Mislav changes task (hold -> rejected)
@@ -73,7 +73,7 @@ Feature: Changing Task Status from New
     And I select "rejected" from "Status"
     And I press "Save"
     And I wait for 1 second
-    And I should see "hold → rejected" status change
+    And I should see "HOLD → REJECTED" status change
     And I should see "done!"
 
   #Scenario: Mislav shouldn't be able to change task (rejected -> new)
