@@ -23,7 +23,8 @@ gem 'sass'
 gem 'aws-s3', '~> 0.6.2', require: 'aws/s3'
 gem 'hpricot', '~> 0.8.2'
 gem 'json'
-gem 'oa-oauth', require: 'omniauth/oauth'
+gem 'oa-oauth', require: 'omniauth/oauth', github: 'dalpo/crewmate-oa-oauth'
+
 gem 'net-ldap'
 gem 'tilt'
 gem 'choices', git: 'git://github.com/teambox/choices.git'
@@ -57,25 +58,25 @@ end
 
 group :development do
   gem 'active_reload' # DEPRECATED
-  gem 'guard-rspec', require: nil
-  gem 'faker',       require: nil
+  gem 'guard-rspec',  require: nil
+  gem 'faker',        require: nil
 end
 
 group :test, :development do
   gem 'dotenv-rails'
-  gem 'rspec-rails', '~> 2.14.1'
-  gem 'timecop', require: 'timecop'
+  gem 'rspec-rails', '~> 2.14.2'
+  gem 'timecop'
 end
 
 group :test do
   gem 'webmock'
-  gem 'codeclimate-test-reporter', require: false
-  gem 'database_cleaner', '~> 1.2.0'
-  gem 'factory_girl', '~> 1.3.2'
-  gem 'pickle', '~> 0.4.4'
-  gem 'cucumber-rails', require: false
-  gem 'capybara', '~> 2.2.1'
-  gem 'poltergeist', '~> 1.5.0'
-  gem 'launchy', '~> 0.3.7'
-  gem 'email_spec', '~> 1.1.1'
+  gem 'codeclimate-test-reporter',      require: false
+  gem 'database_cleaner', '~> 1.3.0'
+  gem 'factory_girl',     '~> 1.3.2'
+  gem 'pickle',           '~> 0.4.4'
+  gem 'cucumber-rails',                 require: false
+  gem 'cucumber'
+  gem 'poltergeist'
+  gem 'capybara'
+  gem 'email_spec'
 end
