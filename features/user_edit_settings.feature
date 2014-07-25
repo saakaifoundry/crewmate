@@ -3,7 +3,7 @@ Feature: Edit user settings
   As a Crewmate admin
   I want users to edit their own settings
 
-  Background: 
+  Background:
     Given there is a user called "balint"
     And the user called "balint" is confirmed
 
@@ -13,7 +13,7 @@ Feature: Edit user settings
     And I select "(GMT+01:00) Budapest" from "Time Zone"
     And I press "Update account"
     Then I should see "User profile updated!"
-    And I should see "(GMT+01:00) Budapest"
+    Then I should see the "Time Zone" dropdown selected with "(GMT+01:00) Budapest"
 
   Scenario: Failed because of bad login
     Given I am logged in as balint
@@ -29,8 +29,7 @@ Feature: Edit user settings
     And I press "Update account"
     Then I should see an error message: "Couldn't save the updated profile. Please correct the mistakes and retry."
 
-    Examples: 
+    Examples:
       | username |
       | all      |
       | ALL      |
-

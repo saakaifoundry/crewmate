@@ -1,7 +1,7 @@
 @javascript @tasks
 Feature: Creating a task
 
-  Background: 
+  Background:
     Given a project exists with name: "Ruby Rockstars"
     And @mislav exists and is logged in
     And I am in the project called "Ruby Rockstars"
@@ -40,7 +40,7 @@ Feature: Creating a task
     And I press "Add Task"
     Then I should see "<error_message>"
 
-    Examples: 
+    Examples:
       | name                                                                                                                                                                                                                                                                                                                                                                      | error_message                       |
       |                                                                                                                                                                                                                                                                                                                                                                           | must not be blank                   |
       | a123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790123456790 | must be shorter than 255 characters |

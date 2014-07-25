@@ -1,7 +1,7 @@
 @organizations
 Feature: Managing organizations
 
-  Background: 
+  Background:
     Given the following confirmed users exist
       | login  | email                    | first_name | last_name |
       | pablo  | pablo@crewmate.org        | Pablo      | Villalba  |
@@ -18,7 +18,8 @@ Feature: Managing organizations
   Scenario: I view all the projects in my organization
     When I go to the home page
     And I follow "Organizations"
-    When I follow "ACME" within ".organizations"
+    And I follow "ACME"
+    And I follow "Manage projects"
     Then I should see "Ruby Rockstars"
 
   Scenario: I edit an organization
@@ -39,32 +40,38 @@ Feature: Managing organizations
 
   Scenario: I promote a participant to an admin
     When I follow "Manage users"
+    And I wait for 0.5 second
     And I follow "Give admin rights"
     Then I should see "Pablo" within ".users_admins"
 
   Scenario: I remove a participant from an organization
     When I follow "Manage users"
+    And I wait for 0.5 second
     And I follow "remove from this organization"
     Then I should see "Pablo" within ".users_external"
 
   Scenario: I promote an external to a participant
     When I follow "Manage users"
+    And I wait for 0.5 second
     And I follow "Add to the organization as a participant"
     Then I should see "Jordi" within ".users_participants"
 
   Scenario: I promote an external to an admin
     When I follow "Manage users"
+    And I wait for 0.5 second
     And I follow "add as an admin"
     Then I should see "Jordi" within ".users_admins"
 
   Scenario: I promote an admin and then demote him to participant
     When I follow "Manage users"
+    And I wait for 0.5 second
     And I follow "add as an admin"
     And I follow "Remove admin rights"
     Then I should see "Jordi" within ".users_participants"
 
   Scenario: I promote an admin and then remove him from the organization
     When I follow "Manage users"
+    And I wait for 0.5 second
     And I follow "add as an admin"
     And I follow "remove from this organization"
     Then I should see "Jordi" within ".users_external"
@@ -122,9 +129,10 @@ Feature: Managing organizations
     And I follow "Delete"
     Then I should see "You can't delete an organization while it still has projects inside"
 
+  @javascript
   Scenario: I can delete an organization if it has no projects
     When the organization called "ACME" has no projects
     Then I follow "ACME"
     And I follow "Delete"
-    And I follow "Delete this organization"
+    And I click "Delete this organization" and accept modal dialog
     Then I should see a notice: "You deleted the organization"

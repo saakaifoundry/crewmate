@@ -5,6 +5,7 @@ Feature: Edit password
     And His password is "cookies"
     When I go to the account settings page
     And  I follow "Change password"
+    And I wait for 0.5 second
     And  I fill in the following:
          | Password         | chunky_bacon |
          | Confirm password | chunky_bacon |

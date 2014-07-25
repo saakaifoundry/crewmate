@@ -3,7 +3,7 @@ Feature: Notifications of comment mentions
   As a Crewmate user
   I want to be notified when I'm mentioned
 
-  Background: 
+  Background:
     Given a project with users @balint, @pablo, @charles, @jordi and @james
     And @balint has his locale set to Italian
     And @pablo has his locale set to Spanish

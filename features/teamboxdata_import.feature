@@ -1,6 +1,6 @@
 Feature: Importing data
 
-Background: 
+Background:
   Given a project exists with name: "Ruby Rockstars"
   And @mislav exists and is logged in
   And I am in the project called "Ruby Rockstars"
@@ -125,4 +125,4 @@ Scenario: Mislav imports data with invalid records
   Then I should see "There were errors with the information you supplied!"
   And @mislav should receive 1 email
   And @mislav should receive 1 email with subject "Your data could not be imported"
- 
+

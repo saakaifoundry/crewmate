@@ -1,10 +1,12 @@
+@timecop
 Feature: Daily reminder for tasks email
   In order to have a reminder of what I should do that day
   As a user
   I want to receive a list of my due tasks at morning each workday
 
-  Background: 
+  Background:
     Given a confirmed user exists with login: "mislav", time_zone: "Amsterdam"
+    And the time is "Fri Jul 30 6:19:54 UTC 2010"
     And a project exists with name: "Aquaculture"
     And the task list called "ASAP" belongs to the project called "Aquaculture"
     And the following task with associations exist:
@@ -12,7 +14,6 @@ Feature: Daily reminder for tasks email
       | Give water to the flowers | ASAP      | Aquaculture |
     And I am currently "mislav"
     And I have the daily task reminders turned on
-    And the time is "Fri Jul 30 6:19:54 UTC 2010"
     And the email reminders are to be sent at 08
 
   Scenario: Only users in the proper timezone get the current batch of reminders
@@ -74,7 +75,7 @@ Feature: Daily reminder for tasks email
     When the daily task reminders go out
     Then I should receive no emails
 
-    Examples: 
+    Examples:
       | day      |
       | Saturday |
       | Sunday   |

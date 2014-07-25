@@ -25,7 +25,6 @@ Feature: Converting a conversation to a task
     And I wait for 1 second
     Then I should see "Politics" in the task thread title
 
-  @active
   Scenario: Converting a normal conversation when you are a commenter
     And I am a commenter in the project called "Ruby Rockstars"
     Given I started a conversation named "Politics" in the "Ruby Rockstars" project

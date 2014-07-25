@@ -1,7 +1,7 @@
 @javascript
 Feature: Watchers for conversations
 
-  Background: 
+  Background:
     Given a project with users @mislav, @balint, @pablo and @james
     And I am logged in as @mislav
 
@@ -9,7 +9,7 @@ Feature: Watchers for conversations
     Given I go to the projects page
     When I fill in the comment box with "Hey, guys..."
     And I wait for 1 second
-    When I follow "Watchers" 
+    When I follow "Watchers"
     Then I should see "All users"
     And I should see "Andrew Wiggin"
     When I follow "All users"
