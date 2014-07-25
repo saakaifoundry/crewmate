@@ -44,6 +44,16 @@ When /^(?:|I )follow "([^\"]*)"(?: within "([^\"]*)")?$/ do |link, selector|
   end
 end
 
+When /^(?:|I )click "([^\"]*)" and accept modal dialog(?: within "([^\"]*)")?$/ do |link, selector|
+  step %{I wait for 1 second}
+
+  with_scope(selector) do
+    accept_confirm_from do
+      click_link(link)
+    end
+  end
+end
+
 When /^(?:|I )fill in "([^\"]*)" with "([^\"]*)"(?: within "([^\"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
     fill_in(field, :with => value)
@@ -133,7 +143,7 @@ Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
 end
 
 Then /^(?:|I )should see '([^\']*)'(?: within '([^\']*)')?$/ do |text, selector|
-  with_scope(selector) do
+  with_css_scope(selector) do
     page.should have_content(text)
   end
 end

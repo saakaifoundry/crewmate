@@ -14,9 +14,9 @@ end
 Given /^the following tasks? with associations exists?:?$/ do |table|
   table.hashes.each do |hash|
     Factory(:task,
-      :name => hash[:name],
+      :name      => hash[:name],
       :task_list => TaskList.find_by_name(hash[:task_list]),
-      :project => Project.find_by_name(hash[:project])
+      :project   => Project.find_by_name(hash[:project])
     )
   end
 end
@@ -24,11 +24,11 @@ end
 Given /^the following tasks? with hours exists?:?$/ do |table|
   table.hashes.each do |hash|
     Factory(:task,
-      :name => hash[:name],
+      :name      => hash[:name],
       :task_list => TaskList.find_by_name(hash[:task_list]),
-      :project => Project.find_by_name(hash[:project]),
-      :user => @current_user
-      ).comments.create :body => hash[:comment], :human_hours => hash[:hours]
+      :project   => Project.find_by_name(hash[:project]),
+      :user      => @current_user
+    ).comments.create :body => hash[:comment], :human_hours => hash[:hours]
   end
 end
 
@@ -58,7 +58,7 @@ end
 
 Given /^the task called "([^\"]*)" is due tomorrow$/ do |name|
   step %(there is a task called "#{name}")
-  Task.find_by_name(name).update_attribute(:due_on, Date.today + 1)
+  Task.find_by_name(name).update_attribute(:due_on, Date.tomorrow)
 end
 
 Given /^the task called "([^\"]*)" is due in (\d+) days?$/ do |name, in_days|
@@ -146,7 +146,7 @@ end
 Then /^I should see "([^\"]*)"(?: and "([^\"]*)")? within the last comment body$/ do |text1, text2|
   comment = all("div.comments .body").last.text
   comment.should match(/#{text1}/)
-  comment.should match(/#{text2}/)
+  comment.should match(/#{text2}/) if text2.present?
 end
 
 Then /^I fill the name field with "([^"]*)"$/ do |name|

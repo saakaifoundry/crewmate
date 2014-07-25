@@ -8,10 +8,10 @@
 each do |within, selector|
   Then /^(?:|I )should( not)? see "([^\"]*)" #{within}$/ do |negate, text|
     with_scope(selector) do
-      if page.html.present?
-        negate ? page.should(have_no_content(text)) : page.should(have_content(text))
+      if negate
+        expect(page.text).to have_no_content text
       else
-        step %(I should#{negate} see "#{text}")
+        expect(page.text).to have_content text
       end
     end
   end
