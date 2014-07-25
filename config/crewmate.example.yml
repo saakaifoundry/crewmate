@@ -18,7 +18,7 @@ defaults: &defaults
   community: false
 
   # You can assign new supervisor role to some users. When you disallow users
-  # to create organizations (see below), than only supervisors will be allowed 
+  # to create organizations (see below), than only supervisors will be allowed
   # to do that. Provide their usernames or comment it out if you don't want
   # supervisor role.
 #  supervisors: admin
@@ -29,11 +29,11 @@ defaults: &defaults
   # Set to true if you want to allow users to sign-up.
   # Sign-up for the first user, just after installation, is allowed implicitly.
   allow_signups: false
-  
+
   # Allow users to create new organizations?
   # If false then only supervisors are allowed to do that.
   user_can_create_organization: true
-  
+
   # Email confirmaiton is require to login
   email_confirmation_require: true
 
@@ -46,7 +46,7 @@ defaults: &defaults
 
   # Enable time tracking
   allow_time_tracking: true
-  
+
   # Gravatar fallback type in case a user doesn't have an avatar
   # One of: wavatar, monsterid, identicon
   gravatar_default: identicon
@@ -62,7 +62,7 @@ defaults: &defaults
 ########## System settings ##########
 
   # Enable search (you must have thinking_sphinx installed and configured)
-  # See http://github.com/crewmate/crewmate/wiki/configuring-search for more 
+  # See http://github.com/crewmate/crewmate/wiki/configuring-search for more
   # information on configuring search
   allow_search: false
 
@@ -108,7 +108,7 @@ defaults: &defaults
   # This will allow users to post answers and comments by email.
   # When set to true, "reply above this line" notice will be displayed where relevant and accept emails.
   allow_incoming_email: false
-  
+
   delay_data_processing: false
 
   # You will need to:
@@ -131,34 +131,34 @@ defaults: &defaults
   # Register your own domain at https://www.google.com/accounts/NewAccount
   # Allows Google Docs integration
   # - :provider: google
-  #   :key: 
-  #   :secret: 
+  #   :key:
+  #   :secret:
   #
   # Register your own domain at http://github.com/account/applications
   # Allows login through Github
   # - :provider: github
-  #   :key: 
-  #   :secret: 
+  #   :key:
+  #   :secret:
   #
   # Register your own domain at http://dev.twitter.com/apps/new
   # Allows login through Twitter
   # - :provider: twitter
-  #   :key: 
-  #   :secret: 
+  #   :key:
+  #   :secret:
   #
   # Register your own domain at http://www.facebook.com/developers
   # Allows login through Facebook
   # - :provider: facebook
-  #   :key: 
+  #   :key:
   #   :secret:
   #
   # Register your own domain at https://www.linkedin.com/secure/developer
   # Allows login through LinkedIn
   # - :provider: linked_in
-  #   :key: 
-  #   :secret: 
+  #   :key:
+  #   :secret:
 
-  # Allow users autentication via LDAP.      
+  # Allow users autentication via LDAP.
   allow_ldap_auth: false
 
   # LDAP settings
@@ -172,12 +172,12 @@ defaults: &defaults
     :first_name_key: givenName
     :last_name_key: sn
     :email_key: mail
- 
- 
+
+
 ########## Others ##########
 
   # Enable option to set organization as default for all new users;
-  # every newly signed user will be automatically added to all default 
+  # every newly signed user will be automatically added to all default
   # organizations as participant (i.e. will be able to create new projects).
   # When you disable it later, it will NOT turn off adding new users to
   # existing default organizations, but only disable change of this option.

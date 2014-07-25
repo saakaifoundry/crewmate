@@ -181,6 +181,7 @@ class Emailer < ActionMailer::Base
   def daily_task_reminder(user_id)
     @user  = User.find(user_id)
     @tasks = @user.tasks_for_daily_reminder_email
+
     mail(
       :to         => @user.email,
       :subject    => I18n.t("users.daily_task_reminder_email.daily_task_reminder")

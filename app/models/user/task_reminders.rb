@@ -5,9 +5,9 @@ class User
     now = Time.now
 
     # find timezones which are currently at the right hour
-    zones = ActiveSupport::TimeZone.all.select {|tz|
+    zones = ActiveSupport::TimeZone.all.select do |tz|
       now.in_time_zone(tz).hour == send_at_hour
-    }
+    end
 
     notificable_users(zones).each do |user|
       if user.assigned_tasks.due_sooner_than_two_weeks.any?
@@ -29,7 +29,7 @@ class User
     tasks.each_with_object(tasks_by_dueness) do |task, all|
       due_identifier = if Date.today == task.due_on
         :today
-      elsif Date.today + 1 == task.due_on
+      elsif Date.tomorrow == task.due_on
         :tomorrow
       elsif Date.today > task.due_on
         :late
