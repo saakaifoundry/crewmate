@@ -7,6 +7,7 @@
 require 'cucumber/rails'
 require 'cucumber/rails/rspec'
 
+require 'capybara'
 require 'capybara/rails'
 require 'capybara/cucumber'
 require 'capybara/session'
@@ -15,30 +16,35 @@ require 'capybara/poltergeist'
 require 'email_spec'
 require 'email_spec/cucumber'
 
+require 'rspec/mocks/standalone'
+
+require 'timecop'
+
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
 # Capybara.default_selector = :xpath
+Capybara.default_selector = :css
 
 # Poltergeist - A PhantomJS driver for Capybara
 # Take a look at https://github.com/teampoltergeist/poltergeist#customization for more customizations
+
+Capybara.javascript_driver = :poltergeist
+
 if ENV['DEBUG']
   require 'pry'
 
   # Using poltergeist_debug you can insert page.driver.debug into your tests to pause the test
   # and launch a browser which gives you the WebKit inspector to view your test run with.
-  Capybara.javascript_driver = :poltergeist_debug
   Capybara.register_driver :poltergeist_debug do |app|
     Capybara::Poltergeist::Driver.new(app, {
+      debug:     false,
       inspector: true,
-      timeout:   600
+      timeout:   600,
     })
   end
-else
-  Capybara.javascript_driver = :poltergeist
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {})
-  end
+
+  Capybara.javascript_driver = :poltergeist_debug
 end
 
 
@@ -58,13 +64,20 @@ end
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+ActionController::Base.allow_forgery_protection = true
 
-# Remove/comment out the lines below if your app doesn't have a database.
-# For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
+# DatabaseCleaner
 begin
-  DatabaseCleaner.strategy = :transaction
+  require 'database_cleaner'
+  require 'database_cleaner/cucumber'
+
+  DatabaseCleaner.strategy = :truncation
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+end
+
+Around do |scenario, block|
+  DatabaseCleaner.cleaning(&block)
 end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
@@ -85,14 +98,19 @@ end
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
-Cucumber::Rails::Database.javascript_strategy = :truncation
+# Cucumber::Rails::Database.javascript_strategy = :truncation
 
-# Base Crewmate configuration
+# Reset current time after timecop scenarios
+After '@timecop' do
+  Timecop.return
+end
+
+# Crewmate configuration
 Before do
-  ActionController::Base.allow_forgery_protection = true
+  Teambox.config.timezone = Time.zone = 'UTC'
+  Teambox.config.allow_outgoing_email = true
+  Teambox.config.allow_signups = true
 
   # Tests are written to target non-community version, except where noted (I am using the community version)
   Teambox.config.community = false
-  Teambox.config.allow_signups = true
-  Teambox.config.allow_outgoing_email = true
 end
