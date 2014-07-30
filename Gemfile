@@ -48,7 +48,7 @@ gem 'thin'
 gem 'mysql2', '~> 0.2.0', group: 'mysql'
 # gem 'mysql', '~> 2.8.1', :require => nil, :group => 'mysql'
 gem 'pg', group: 'pg'
-gem 'sqlite3', group: 'sqlite'
+# gem 'sqlite3', group: 'sqlite'
 
 group :development do
   gem 'pry-rails'
